@@ -19,7 +19,7 @@ const RegisterPage = () => {
   });
 
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
   const redirectTo = useSelector((state) => state.auth.redirectTo);
   const history = useHistory();

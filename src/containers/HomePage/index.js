@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Container,
   Jumbotron,
@@ -9,7 +9,6 @@ import {
   FormControl,
   Row,
   Col,
-  Carousel,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import coffee from "../../images/coffee.png";
@@ -28,21 +27,34 @@ const HomePage = () => {
       <Container>
         {/* 점보트론 */}
         <Jumbotron className="text-center jumbotron">
-          <h1>Search for a Coffee Society in Saigon</h1>
-          <InputGroup className="inline mt-9 mb-4">
-            <FormControl
-              placeholder="Start Typing to Search"
-              aria-describedby="basic-addon2"
-            />
-            <InputGroup.Append>
-              <Button variant="outline-secondary">Search</Button>
-            </InputGroup.Append>
-          </InputGroup>
+          {/* <h1>Search for a Coffee Society in Saigon</h1> */}
+          <div>
+            <InputGroup
+              className="inline mt-9 mb-4"
+              style={{
+                width: "24rem",
+                marginTop: "18rem",
+                marginLeft: "5rem",
+              }}
+            >
+              <FormControl
+                placeholder="Search for a Coffee Society in Saigon"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button variant="outline-secondary">Search</Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </div>
         </Jumbotron>
 
         {/* 중간광고 1번 */}
         <div class="d-flex align-content-center flex-column align-items-center">
-          <span class="mt-5 mb-5">Saigon Coffee Showroom</span>
+          <span class="mt-5 mb-5">
+            Coffee Society
+            <br />
+            Saigon Coffee Showroom
+          </span>
         </div>
 
         {/* 메인카드 3개 */}
@@ -100,7 +112,10 @@ const HomePage = () => {
 
         {/* 중간광고 2번 */}
         <div class="d-flex align-content-center flex-column align-items-center">
-          <span class="mt-5 mb-5">Coffee Information</span>
+          <span class="mt-5 mb-5">
+            A gathering of like-minded coffee-drinkers who want to learn the art
+            of brewing
+          </span>
         </div>
 
         {/* 추가카드 3개 */}

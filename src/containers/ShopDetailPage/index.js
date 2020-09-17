@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
-import Markdown from "react-markdown";
+// import Markdown from "react-markdown";
 import Moment from "react-moment";
 import { Button } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { shopActions, authActions } from "../../redux/actions";
+// import { useHistory } from "react-router-dom";
+import { shopActions } from "../../redux/actions";
 import { Row, Col } from "react-bootstrap";
 
 const ShopDetailPage = () => {
@@ -15,14 +15,14 @@ const ShopDetailPage = () => {
   const loading = useSelector((state) => state.shop.loading);
   const shop = useSelector((state) => state.shop.selectedShop);
   const currentUser = useSelector((state) => state.auth.user);
-  const history = useHistory();
+  // const history = useHistory();
   console.log(shop);
   useEffect(() => {
     if (params?.id) {
       dispatch(shopActions.getSingleShop(params.id));
     }
     // dispatch(authActions.getCurrentUser());
-  }, []);
+  }, [dispatch, params]);
 
   console.log(currentUser);
   return (
@@ -45,20 +45,41 @@ const ShopDetailPage = () => {
                       edited <Moment fromNow>{shop.createdAt}</Moment>
                     </span>
                   )}
+
                   <hr />
-                  <p>{shop.name}</p>
-                  <p>{shop.tags} </p>
-
-                  {shop.tags &&
-                    shop.tags.map((e) => <Link to={`/tags?q=${e}`}> {e}</Link>)}
-
-                  <p>{shop.address} </p>
-                  <p>{shop.phone}</p>
                   <p>
-                    {" "}
-                    from {shop.openHour} to {shop.closeHour}
+                    <span className="detail-item">Store Name:</span>{" "}
+                    <span>{shop.name} </span>
                   </p>
-                  <p>{shop.event}</p>
+
+                  <p>
+                    <span className="detail-item"> #Tag:</span>{" "}
+                    <span>
+                      {shop.tags &&
+                        shop.tags.map((e) => (
+                          <Link to={`/tags?q=${e}`}> {e}</Link>
+                        ))}
+                    </span>
+                  </p>
+
+                  <p>
+                    <span className="detail-item">Address:</span>{" "}
+                    <span>{shop.address}</span>
+                  </p>
+                  <p>
+                    <span className="detail-item">Contact Number:</span>{" "}
+                    <span>{shop.phone}</span>
+                  </p>
+                  <p>
+                    <span className="detail-item">Business Hour:</span>{" "}
+                    <span>
+                      from {shop.openHour} to {shop.closeHour}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="detail-item"> Upcoming Event: </span>{" "}
+                    <span>{shop.event}</span>
+                  </p>
                   <hr />
                 </Col>
               </Row>

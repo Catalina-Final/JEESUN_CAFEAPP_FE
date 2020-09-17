@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ShopCard from "../../components/ShopCard";
 import PaginationItem from "../../components/PaginationItem";
 import { Jumbotron, Button } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { shopActions } from "../../redux/actions";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -23,19 +23,30 @@ const RankingPage = () => {
 
   return (
     <div className="ranking-container">
-      <Jumbotron className="text-center">
-        <p style={{ fontSize: "23px", color: "white", fontFamily: "serif" }}>
-          Upload your cafe
+      <div className="text-center">
+        <p
+          style={{
+            fontSize: "23px",
+            color: "black",
+            fontFamily: "serif",
+            marginTop: "5rem",
+          }}
+        >
+          Are you a cafe owner? Add your cafe to the society.
         </p>
 
         <Button
           variant="dark"
-          style={{ fontSize: "17px", fontFamily: "monospace" }}
+          style={{
+            fontSize: "17px",
+            fontFamily: "monospace",
+            marginBottom: "5rem",
+          }}
           onClick={() => history.push("/shop/add")} /////// or <Link to={`/shop/add}`}>
         >
           Add
         </Button>
-      </Jumbotron>
+      </div>
       {loading ? (
         <ClipLoader color="#f86c6b" size={150} loading={loading} />
       ) : (

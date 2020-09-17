@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -38,8 +38,8 @@ const PublicNavbar = () => {
   return (
     <Navbar className="top-bar">
       <Navbar.Brand as={Link} to="/" style={{ padding: "-2rem" }}>
-        <img src={logo} alt="CoffeeSociety" style={{ width: "4rem" }} />
-        <small>Saigon Coffee Showroom</small>
+        <img src={logo} alt="CoffeeSociety" style={{ height: "4rem" }} />
+        <small className="ml-2"> Saigon Coffee Showroom </small>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">

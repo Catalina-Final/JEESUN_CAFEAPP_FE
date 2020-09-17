@@ -6,7 +6,7 @@
   font-family: "Spartan", sans-serif; */
 }
 .top-bar {
-  background-color: #b7a986 !important;
+  background-color: #daceb2 !important;
 }
 .jumbotron {
   background-image: url("../src/images/jumbo.png");
@@ -15,47 +15,51 @@
   background-size: cover;
   opacity: 1;
 }
-.jumbotron:hover {
-  background-image: url("../src/images/jumbo.png");
-  height: 70vh;
-  background-position: center;
-  background-size: cover;
-  opacity: 0.85;
-}
 .card {
   border: none !important;
 }
+
+.instagram-media {
+  min-width: auto !important;
+}
 .ranking-container {
-  background-color: yellow;
+  /* background-color: yellow; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 5% 10% 5% 10%;
 }
 .shop-card {
-  background-color: violet;
+  /* background-color: violet; */
   display: flex;
   flex-direction: row;
   width: auto;
   margin: 2rem 0 2rem 0;
+  border: #b7a986 1px solid;
 }
-.shop-card-body {
-  /* background-color: pink; */
+/* .shop-card-body {
+  background-color: pink;
   display: flex;
   flex-direction: column;
   width: auto;
-}
+} */
 .add-container {
-  background-color: yellow;
+  background-color: #f2efec;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 5% 10% 5% 10%;
+  margin: 5% 10% 5% 10%;
 }
 .shop-detail-container {
-  background-color: yellow;
+  background-color: #f2efec;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5% 10% 5% 10%;
+  padding: 3% 5% 0% 5%;
+  margin: 5% 10% 5% 10%;
+}
+
+.detail-item {
+  margin: 5% 3% 0% 0%;
 }

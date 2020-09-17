@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, ButtonGroup } from "react-bootstrap";
 import { shopActions } from "../../redux/actions";
-import { useParams, useHistory, Redirect } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PlacesAutocomplete from "react-places-autocomplete";
 import {
   geocodeByAddress,
-  geocodeByPlaceId,
+  // geocodeByPlaceId,
   getLatLng,
 } from "react-places-autocomplete";
 
@@ -16,9 +16,10 @@ const AddEditShopPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     owner: "",
-    address: "12 Ton Dan",
+    images: "",
+    address: "",
     district: "",
-    phone: "098343434",
+    phone: "",
     tags: [],
     coords: [],
   });
@@ -74,12 +75,22 @@ const AddEditShopPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, owner, address, district, phone, tags, coords } = formData;
+    const {
+      name,
+      owner,
+      images,
+      address,
+      district,
+      phone,
+      tags,
+      coords,
+    } = formData;
     if (addOrEdit === "Add") {
       dispatch(
         shopActions.createNewShop(
           name,
           owner,
+          images,
           address,
           district,
           phone,
@@ -93,9 +104,12 @@ const AddEditShopPage = () => {
           selectedShop._id,
           name,
           owner,
-          district,
+          images,
           address,
-          phone
+          district,
+          phone,
+          tags,
+          coords
         )
       );
     }
@@ -136,7 +150,13 @@ const AddEditShopPage = () => {
               <h1 className="text-dark">{addOrEdit} Shop</h1>
             </div>
             <Form.Group>
-              <Form.File id="exampleFormControlFile1" label="Upload a Photo" />
+              <Form.File
+                id="exampleFormControlFile1"
+                label="Upload a Photo"
+                required
+                type="file"
+                name="images"
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Name</Form.Label>
