@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ShopCard from "../../components/ShopCard";
 import PaginationItem from "../../components/PaginationItem";
-import { Jumbotron, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { shopActions } from "../../redux/actions";
@@ -14,7 +14,7 @@ const RankingPage = () => {
   const shops = useSelector((state) => state.shop.shops);
 
   useEffect(() => {
-    dispatch(shopActions.shopsRequest());
+    dispatch(shopActions.shopsRequest(1));
   }, [dispatch]);
 
   const handleClickOnShop = (id) => {

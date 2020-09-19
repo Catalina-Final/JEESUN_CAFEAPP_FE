@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Row, Col, Carousel, Card, CardGroup } from "react-bootstrap";
-import coffee from "../images/coffee.png";
-import event from "../images/event.png";
 import InstagramEmbed from "react-instagram-embed";
 
 const CarouselItem = () => {
@@ -16,7 +14,7 @@ const CarouselItem = () => {
       {/* 인스타그램 캐로우셀 */}
       <Carousel activeIndex={index} onSelect={handleSelect}>
         <Carousel.Item>
-          <CardGroup class="d-flex align-content-center flex-column align-items-center">
+          <CardGroup className="d-flex align-content-center flex-column align-items-center">
             <Row>
               <Col sm={3}>
                 <Card border="light" style={{ width: "18rem" }}>

@@ -8,7 +8,7 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
+//before
 api.interceptors.request.use(
   (request) => {
     console.log("Starting Request:", request);
@@ -19,15 +19,19 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.request.use(
+api.interceptors.response.use(
   (response) => {
     console.log("Response:", response);
+
     return response;
   },
   function (error) {
-    error = error.response.data;
     console.log("RESPONSE ERROR", error);
-    configureStore.dispatch(alertActions.setAlert(error.message, "danger"));
+    error = error.response.data;
+    let errorMsg = error.message || error;
+    if (error.errors && error.errors.message)
+      errorMsg = errorMsg + ": " + error.errors.message;
+    configureStore.dispatch(alertActions.setAlert(errorMsg, "danger"));
     return Promise.reject(error);
   }
 );

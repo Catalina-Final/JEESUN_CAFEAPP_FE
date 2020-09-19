@@ -63,3 +63,32 @@
 .detail-item {
   margin: 5% 3% 0% 0%;
 }
+
+.month_default_event_inner {
+  background: #999999;
+  color: #fff;
+  font-size: 12px;
+  padding: 0px 10px;
+  opacity: 0.8;
+  border-radius: 5px;
+
+  /* vertical centering */
+  display: flex;
+  align-items: center;
+}
+
+.event-container {
+  /* background-color: yellow; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5% 10% 5% 10%;
+}
+.event-detail-container {
+  background-color: #f2efec;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3% 5% 0% 5%;
+  margin: 5% 10% 5% 10%;
+}

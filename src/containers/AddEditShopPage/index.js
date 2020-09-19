@@ -16,7 +16,7 @@ const AddEditShopPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     owner: "",
-    images: "",
+    images: null,
     address: "",
     district: "",
     phone: "",
@@ -75,43 +75,11 @@ const AddEditShopPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {
-      name,
-      owner,
-      images,
-      address,
-      district,
-      phone,
-      tags,
-      coords,
-    } = formData;
+
     if (addOrEdit === "Add") {
-      dispatch(
-        shopActions.createNewShop(
-          name,
-          owner,
-          images,
-          address,
-          district,
-          phone,
-          tags,
-          coords
-        )
-      );
+      dispatch(shopActions.createNewShop(formData));
     } else if (addOrEdit === "Edit") {
-      dispatch(
-        shopActions.updateShop(
-          selectedShop._id,
-          name,
-          owner,
-          images,
-          address,
-          district,
-          phone,
-          tags,
-          coords
-        )
-      );
+      dispatch(shopActions.updateShop(selectedShop._id, formData));
     }
   };
 
@@ -141,6 +109,24 @@ const AddEditShopPage = () => {
     }
   }, [redirectTo, dispatch, history]);
 
+  const uploadWidget = () => {
+    window.cloudinary.openUploadWidget(
+      {
+        cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+        upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
+        tags: ["socialBlog", "blogImages"],
+      },
+      function (error, result) {
+        if (result && result.length) {
+          setFormData({
+            ...formData,
+            images: result.map((res) => res.secure_url),
+          });
+        }
+      }
+    );
+  };
+
   return (
     <div className="add-container">
       <Row>
@@ -149,14 +135,35 @@ const AddEditShopPage = () => {
             <div className="text-center mb-3">
               <h1 className="text-dark">{addOrEdit} Shop</h1>
             </div>
-            <Form.Group>
+            {/* <Form.Group>
               <Form.File
                 id="exampleFormControlFile1"
-                label="Upload a Photo"
+                label="Store Image"
                 required
                 type="file"
                 name="images"
+                value={formData.images}
+                onChange={handleChange}
               />
+            </Form.Group> */}
+            <Form.Group>
+              {formData?.images?.map((image) => (
+                <img
+                  src={image}
+                  key={image}
+                  width="150px"
+                  height="150px"
+                  alt="blog images"
+                ></img>
+              ))}
+              <span
+                className="d-flex align-content-center flex-column align-items-center"
+                style={{ marginTop: "2rem" }}
+              >
+                <Button variant="info" onClick={uploadWidget}>
+                  {addOrEdit} Images
+                </Button>
+              </span>
             </Form.Group>
             <Form.Group>
               <Form.Label>Name</Form.Label>
@@ -218,6 +225,7 @@ const AddEditShopPage = () => {
                               className,
                               style,
                             })}
+                            key={suggestion.placeId}
                           >
                             <span>{suggestion.description}</span>
                           </div>

@@ -30,15 +30,16 @@ const getSingleShop = (shopId) => async (dispatch) => {
   }
 };
 
-const createNewShop = (
+const createNewShop = ({
   name,
   owner,
   address,
   district,
   phone,
   tags,
-  coords
-) => async (dispatch) => {
+  coords,
+  images,
+}) => async (dispatch) => {
   dispatch({ type: types.CREATE_SHOP_REQUEST, payload: null });
   try {
     const res = await api.post("/shops", {
@@ -49,6 +50,7 @@ const createNewShop = (
       phone,
       tags,
       coords,
+      images,
     });
     dispatch({
       type: types.CREATE_SHOP_SUCCESS,
@@ -62,12 +64,7 @@ const createNewShop = (
 
 const updateShop = (
   shopId,
-  name,
-  owner,
-  district,
-  address,
-  phone,
-  coords
+  { name, owner, district, address, phone, coords, images }
 ) => async (dispatch) => {
   dispatch({ type: types.UPDATE_SHOP_REQUEST, payload: null });
   try {

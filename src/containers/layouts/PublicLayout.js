@@ -9,6 +9,8 @@ import RankingPage from "../RankingPage";
 import SearchResultPage from "../SearchResultPage";
 import EventPage from "../EventPage";
 import ShopDetailPage from "../ShopDetailPage";
+import EventDetailPage from "../EventDetailPage";
+import AddEditEventPage from "../AddEditEventPage";
 import GearsPage from "../GearsPage";
 import PublicFooter from "../PublicFooter";
 import AddEditShopPage from "../AddEditShopPage";
@@ -30,10 +32,14 @@ const PublicLayout = () => {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
 
-        <Route exact path="/shops/:id" component={ShopDetailPage} />
-        <Route exact path="/searchresult" component={SearchResultPage} />
         <Route exact path="/ranking" component={RankingPage} />
+        <Route exact path="/shops/:id" component={ShopDetailPage} />
+
         <Route exact path="/events" component={EventPage} />
+        <Route exact path="/events/:id" component={EventDetailPage} />
+
+        <Route exact path="/searchresult" component={SearchResultPage} />
+
         <Route exact path="/gears" component={GearsPage} />
 
         <PrivateRoute
@@ -47,6 +53,20 @@ const PublicLayout = () => {
           path="/shop/edit/:id"
           isAuthenticated={auth.isAuthenticated}
           component={AddEditShopPage}
+        />
+
+        <PrivateRoute
+          exact
+          path="/event/add"
+          isAuthenticated={auth.isAuthenticated}
+          component={AddEditEventPage}
+        />
+
+        <PrivateRoute
+          exact
+          path="/event/edit/:id"
+          isAuthenticated={auth.isAuthenticated}
+          component={AddEditEventPage}
         />
 
         <Route component={NotFoundPage} />

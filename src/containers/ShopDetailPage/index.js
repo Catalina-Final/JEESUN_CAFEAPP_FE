@@ -3,11 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 // import Markdown from "react-markdown";
 import Moment from "react-moment";
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
 import { shopActions } from "../../redux/actions";
-import { Row, Col } from "react-bootstrap";
 
 const ShopDetailPage = () => {
   const params = useParams();

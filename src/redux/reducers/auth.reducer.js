@@ -3,7 +3,6 @@ import * as types from "../constants/auth.constants";
 const initialState = {
   user: {},
   accessToken: localStorage.getItem("accessToken"),
-  isAuthenticated: false,
   loading: false,
 };
 

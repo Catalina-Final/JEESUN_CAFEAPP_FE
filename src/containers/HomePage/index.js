@@ -49,8 +49,8 @@ const HomePage = () => {
         </Jumbotron>
 
         {/* 중간광고 1번 */}
-        <div class="d-flex align-content-center flex-column align-items-center">
-          <span class="mt-5 mb-5">
+        <div className="d-flex align-content-center flex-column align-items-center">
+          <span className="mt-5 mb-5">
             Coffee Society
             <br />
             Saigon Coffee Showroom
@@ -58,7 +58,7 @@ const HomePage = () => {
         </div>
 
         {/* 메인카드 3개 */}
-        <CardGroup class="d-flex align-content-center flex-column align-items-center">
+        <CardGroup className="d-flex align-content-center flex-column align-items-center">
           <Row>
             <Col sm={4}>
               <Card border="light" style={{ width: "20rem" }}>
@@ -111,15 +111,15 @@ const HomePage = () => {
         </CardGroup>
 
         {/* 중간광고 2번 */}
-        <div class="d-flex align-content-center flex-column align-items-center">
-          <span class="mt-5 mb-5">
+        <div className="d-flex align-content-center flex-column align-items-center">
+          <span className="mt-5 mb-5">
             A gathering of like-minded coffee-drinkers who want to learn the art
             of brewing
           </span>
         </div>
 
         {/* 추가카드 3개 */}
-        <CardGroup class="d-flex align-content-center flex-column align-items-center">
+        <CardGroup className="d-flex align-content-center flex-column align-items-center">
           <Row>
             <Col sm={4}>
               <Card border="light" style={{ width: "20rem" }}>
@@ -163,8 +163,8 @@ const HomePage = () => {
         </CardGroup>
 
         {/* 중간광고 3번 */}
-        <div class="d-flex align-content-center flex-column align-items-center">
-          <span class="mt-5 mb-5">Instagram</span>
+        <div className="d-flex align-content-center flex-column align-items-center">
+          <span className="mt-5 mb-5">Instagram</span>
         </div>
         {/* 인스타그램 캐로우셀 */}
         <CarouselItem />
