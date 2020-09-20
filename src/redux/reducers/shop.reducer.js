@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   pageNum: 1,
   selectedShop: {},
+  submitReviewLoading: false,
 };
 
 const shopReducer = (state = initialState, action) => {
@@ -60,6 +61,21 @@ const shopReducer = (state = initialState, action) => {
       };
     case types.DELETE_SHOP_FAILURE:
       return { ...state, loading: false };
+
+    case types.CREATE_REVIEW_REQUEST:
+      return { ...state, submitLoading: true };
+    case types.CREATE_REVIEW_SUCCESS:
+      return {
+        ...state,
+        submitLoading: false,
+        selectedShop: {
+          ...state.selectedShop,
+          reviews: [...state.selectedShop.reviews, payload],
+        },
+      };
+    case types.CREATE_REVIEW_FAILURE:
+      return { ...state, submitLoading: false };
+
     case types.SET_REDIRECT_TO:
       return { ...state, redirectTo: payload };
     default:

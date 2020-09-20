@@ -114,7 +114,7 @@ const AddEditShopPage = () => {
       {
         cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
         upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
-        tags: ["socialBlog", "blogImages"],
+        tags: ["coffeeSociety", "shopImages"],
       },
       function (error, result) {
         if (result && result.length) {
@@ -128,7 +128,7 @@ const AddEditShopPage = () => {
   };
 
   return (
-    <div className="add-container">
+    <div className="add-shop-container">
       <Row>
         <Col>
           <Form onSubmit={handleSubmit}>
@@ -166,7 +166,7 @@ const AddEditShopPage = () => {
               </span>
             </Form.Group>
             <Form.Group>
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Store Name</Form.Label>
               <Form.Control
                 type="text"
                 required

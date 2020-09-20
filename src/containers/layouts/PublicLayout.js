@@ -12,6 +12,7 @@ import ShopDetailPage from "../ShopDetailPage";
 import EventDetailPage from "../EventDetailPage";
 import AddEditEventPage from "../AddEditEventPage";
 import GearsPage from "../GearsPage";
+import MasterPage from "../MasterPage";
 import PublicFooter from "../PublicFooter";
 import AddEditShopPage from "../AddEditShopPage";
 import PrivateRoute from "../Routes/PrivateRoute";
@@ -41,6 +42,7 @@ const PublicLayout = () => {
         <Route exact path="/searchresult" component={SearchResultPage} />
 
         <Route exact path="/gears" component={GearsPage} />
+        <Route exact path="/master" component={MasterPage} />
 
         <PrivateRoute
           exact

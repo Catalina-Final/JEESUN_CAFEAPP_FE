@@ -93,6 +93,21 @@ const deleteShop = (shopId) => async (dispatch) => {
   }
 };
 
+const createReview = (shopId, reviewText) => async (dispatch) => {
+  dispatch({ type: types.CREATE_REVIEW_REQUEST, payload: null });
+  try {
+    const res = await api.post(`/shops/${shopId}/reviews`, {
+      content: reviewText,
+    });
+    dispatch({
+      type: types.CREATE_REVIEW_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch({ type: types.CREATE_REVIEW_FAILURE, payload: error });
+  }
+};
+
 const setRedirectTo = (redirectTo) => ({
   type: types.SET_REDIRECT_TO,
   payload: redirectTo,
@@ -104,5 +119,6 @@ export const shopActions = {
   createNewShop,
   updateShop,
   deleteShop,
+  createReview,
   setRedirectTo,
 };

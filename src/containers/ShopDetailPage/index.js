@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 // import Markdown from "react-markdown";
@@ -7,6 +7,8 @@ import { Button, Row, Col } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
 import { shopActions } from "../../redux/actions";
+import ReviewList from "../../components/ReviewList";
+import ReviewShop from "../../components/ReviewShop";
 
 const ShopDetailPage = () => {
   const params = useParams();
@@ -15,6 +17,24 @@ const ShopDetailPage = () => {
   const shop = useSelector((state) => state.shop.selectedShop);
   const currentUser = useSelector((state) => state.auth.user);
   // const history = useHistory();
+  const submitReviewLoading = useSelector(
+    (state) => state.shop.submitReviewLoading
+  );
+  const [reviewText, setReviewText] = useState("");
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  const handleInputChange = (e) => {
+    setReviewText(e.target.value);
+    // console.log("review :", e.target.value);
+  };
+
+  const handleSubmitReview = (e) => {
+    e.preventDefault();
+    dispatch(shopActions.createReview(shop._id, reviewText));
+    setReviewText("");
+    console.log("review submit :", reviewText);
+  };
+
   console.log(shop);
   useEffect(() => {
     if (params?.id) {
@@ -35,7 +55,7 @@ const ShopDetailPage = () => {
               <Row>
                 <Col md={{ span: 6, offset: 3 }}>
                   <h1>{shop.name}</h1>
-                  {currentUser?.role === "owner" ? (
+                  {currentUser?.role === "owner" || "admin" ? (
                     <Link to={`/shop/edit/${shop._id}`}>
                       <Button variant="primary">Edit</Button>
                     </Link>
@@ -80,9 +100,19 @@ const ShopDetailPage = () => {
                     <span>{shop.event}</span>
                   </p>
                   <hr />
+                  <ReviewList reviews={shop.reviews} />
+                  <hr />
                 </Col>
               </Row>
             </div>
+          )}
+          {isAuthenticated && (
+            <ReviewShop
+              reviewText={reviewText}
+              handleInputChange={handleInputChange}
+              handleSubmitReview={handleSubmitReview}
+              loading={submitReviewLoading}
+            />
           )}
         </>
       )}

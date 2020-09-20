@@ -43,7 +43,7 @@
   flex-direction: column;
   width: auto;
 } */
-.add-container {
+.add-shop-container {
   background-color: #f2efec;
   display: flex;
   flex-direction: column;
@@ -90,5 +90,22 @@
   flex-direction: column;
   justify-content: center;
   padding: 3% 5% 0% 5%;
+  margin: 5% 10% 5% 10%;
+}
+.add-event-container {
+  background-color: #f2efec;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5% 10% 5% 10%;
+  margin: 5% 10% 5% 10%;
+}
+
+.master-container {
+  background-color: #f2efec;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5% 10% 5% 10%;
   margin: 5% 10% 5% 10%;
 }

@@ -40,6 +40,7 @@ const CarouselItem = () => {
                   {/* <Card.Img variant="top" src={event} /> */}
                   <InstagramEmbed
                     url="https://www.instagram.com/p/CFP9COPHQQN/"
+                    img
                     align="center"
                     maxWidth={180}
                     hideCaption={true}

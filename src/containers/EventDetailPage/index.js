@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Row, Col, Button } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Moment from "react-moment";
 import { eventActions } from "../../redux/actions";
 
@@ -12,6 +12,7 @@ const EventDetailPage = () => {
   const event = useSelector((state) => state.event.selectedEvent);
   const currentUser = useSelector((state) => state.auth.user);
   const params = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     if (params?.id) {
@@ -30,7 +31,7 @@ const EventDetailPage = () => {
             <div className="mb-5">
               <Row>
                 <Col md={{ span: 6, offset: 3 }}>
-                  <h1>{event.shop}</h1>
+                  <h1>{event.title}</h1>
                   {currentUser?.role === "owner" || "admin" ? (
                     <Link to={`/event/edit/${event._id}`}>
                       <Button variant="primary">Edit</Button>
@@ -43,10 +44,24 @@ const EventDetailPage = () => {
 
                   <hr />
                   <p>
-                    <span className="detail-item">Event Name: </span>{" "}
-                    <span>{event.name} </span>
+                    <span className="detail-item"></span>{" "}
+                    <span>{event.images} </span>
+                  </p>
+                  <p>
+                    <span className="detail-item">Event Title: </span>{" "}
+                    <span>{event.title} </span>
+                  </p>
+                  <p>
+                    <span className="detail-item">Shop:</span>{" "}
+                    <span onClick={(id) => history.push(`/shops/${id}`)}>
+                      {event.shop}
+                    </span>
                   </p>
 
+                  <p>
+                    <span className="detail-item">Description: </span>{" "}
+                    <span>{event.description} </span>
+                  </p>
                   <p>
                     <span className="detail-item">Address:</span>{" "}
                     <span>{event.address}</span>

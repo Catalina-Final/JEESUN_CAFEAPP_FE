@@ -12,6 +12,7 @@ const RankingPage = () => {
   const history = useHistory();
   const loading = useSelector((state) => state.shop.loading);
   const shops = useSelector((state) => state.shop.shops);
+  const currentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     dispatch(shopActions.shopsRequest(1));
@@ -24,28 +25,46 @@ const RankingPage = () => {
   return (
     <div className="ranking-container">
       <div className="text-center">
-        <p
-          style={{
-            fontSize: "23px",
-            color: "black",
-            fontFamily: "serif",
-            marginTop: "5rem",
-          }}
-        >
-          Are you a cafe owner? Add your cafe to the society.
-        </p>
+        {currentUser?.role === "owner" || "admin" ? (
+          <div>
+            <p
+              style={{
+                fontSize: "23px",
+                color: "black",
+                fontFamily: "serif",
+                marginTop: "3rem",
+              }}
+            >
+              Haven't uploaded yet? Add your cafe to our society.
+            </p>
 
-        <Button
-          variant="dark"
-          style={{
-            fontSize: "17px",
-            fontFamily: "monospace",
-            marginBottom: "5rem",
-          }}
-          onClick={() => history.push("/shop/add")} /////// or <Link to={`/shop/add}`}>
-        >
-          Add
-        </Button>
+            <Button
+              variant="dark"
+              style={{
+                fontSize: "17px",
+                fontFamily: "monospace",
+                marginBottom: "5rem",
+              }}
+              onClick={() => history.push(`/shop/add`)} /////// or <Link to={`/shop/add}`}>
+            >
+              Add
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <p
+              style={{
+                fontSize: "23px",
+                color: "black",
+                fontFamily: "serif",
+                marginTop: "3rem",
+                marginBottom: "5rem",
+              }}
+            >
+              Check out our cafes!
+            </p>
+          </div>
+        )}
       </div>
       {loading ? (
         <ClipLoader color="#f86c6b" size={150} loading={loading} />

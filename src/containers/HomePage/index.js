@@ -153,7 +153,10 @@ const HomePage = () => {
                 <Card.Body>
                   <Card.Title>Master</Card.Title>
                   <Card.Text>Barista Class</Card.Text>
-                  <Button variant="light" onClick={() => history.push("/")}>
+                  <Button
+                    variant="light"
+                    onClick={() => history.push("/master")}
+                  >
                     READ NOW
                   </Button>
                 </Card.Body>

@@ -1,42 +1,79 @@
-import React, { useState } from "react";
+import React from "react";
 import { Pagination } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { shopActions } from "../redux/actions";
 
+const pageLimit = 10;
 const PaginationItem = () => {
-  const loading = useSelector((state) => state.auth.loading);
-  const [pageNum, setPageNum] = useState();
+  const pageNum = useSelector((state) => state.shop.pageNum);
+  const totalResults = useSelector((state) => state.shop.totalResults);
+  let totalPageNum = 0;
+  if (totalResults % pageLimit > 0)
+    totalPageNum = Math.floor(totalResults / pageLimit) + 1;
+  else totalPageNum = Math.floor(totalResults / pageLimit);
 
-  const handleClickOnFirst = () => {
-    if (!loading) {
-      setPageNum(1);
-    }
+  const dispatch = useDispatch();
+
+  const handleClick = (pageNum) => {
+    dispatch(shopActions.shopsRequest(pageNum));
   };
-
+  const handleClickOnFirst = () => {
+    dispatch(shopActions.shopsRequest(1));
+  };
   const handleClickOnPrev = () => {
-    if (!loading && pageNum > 1) {
-      setPageNum((pageNum = pageNum + 1));
-    }
+    dispatch(shopActions.shopsRequest(pageNum - 1));
+  };
+  const handleClickOnNext = () => {
+    dispatch(shopActions.shopsRequest(pageNum + 1));
+  };
+  const handleClickOnLast = () => {
+    dispatch(shopActions.shopsRequest(totalPageNum));
   };
 
   return (
-    <Pagination className="justify-content-center" disabled={loading}>
-      <Pagination.First disabled={pageNum === 1} onClick={handleClickOnFirst} />
-      <Pagination.Prev disabled={pageNum === 1} onClick={handleClickOnPrev} />
+    <>
+      <Pagination size="lg" className="justify-content-center pagination">
+        <Pagination.First
+          disabled={pageNum === 1}
+          onClick={handleClickOnFirst}
+        />
+        <Pagination.Prev
+          disabled={pageNum === 1}
+          onClick={() => handleClickOnPrev()}
+        />
+        <Pagination.Item active={pageNum === 1} onClick={() => handleClick(1)}>
+          {1}
+        </Pagination.Item>
 
-      <Pagination.Item>{1}</Pagination.Item>
+        {/* {pageNum - 1 > 1 && <Pagination.Ellipsis />} */}
+        {pageNum > 1 && pageNum < totalPageNum && (
+          <Pagination.Item active>{pageNum}</Pagination.Item>
+        )}
+        {/* {totalPageNum > pageNum + 1 && <Pagination.Ellipsis />} */}
 
-      <Pagination.Ellipsis />
+        {totalPageNum > 1 && (
+          <Pagination.Item
+            active={pageNum === totalPageNum}
+            onClick={() => handleClick(totalPageNum)}
+          >
+            {totalPageNum}
+          </Pagination.Item>
+        )}
 
-      <Pagination.Item>{10}</Pagination.Item>
+        {pageNum > 1 && pageNum < totalPageNum && (
+          <Pagination.Item active>{pageNum}</Pagination.Item>
+        )}
 
-      <Pagination.Ellipsis />
-
-      <Pagination.Item>{20}</Pagination.Item>
-
-      <Pagination.Next />
-
-      <Pagination.Last />
-    </Pagination>
+        <Pagination.Next
+          disabled={pageNum === totalPageNum}
+          onClick={() => handleClickOnNext()}
+        />
+        <Pagination.Last
+          disabled={pageNum === totalPageNum}
+          onClick={() => handleClickOnLast()}
+        />
+      </Pagination>
+    </>
   );
 };
 
