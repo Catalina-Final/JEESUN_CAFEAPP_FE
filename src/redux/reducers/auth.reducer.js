@@ -19,20 +19,22 @@ const authReducer = (state = initialState, action) => {
     case types.LOGIN_FACEBOOK_SUCCESS:
     case types.LOGIN_GOOGLE_SUCCESS:
       localStorage.setItem("accessToken", payload.accessToken);
-      console.log(payload.accessToken);
+      // console.log(payload.accessToken);
+
       return {
         ...state,
-        user: { ...payload.data },
-        accessToken: payload.ccessToken,
+        user: { ...payload.data.user },
+        accessToken: payload.accessToken,
         loading: false,
         isAuthenticated: true,
       };
+
     case types.LOGIN_SUCCESS:
       localStorage.setItem("accessToken", payload.data.accessToken);
       console.log(payload.accessToken);
       return {
         ...state,
-        user: { ...payload.data },
+        user: { ...payload.data.user },
         accessToken: payload.data.accessToken,
         loading: false,
         isAuthenticated: true,

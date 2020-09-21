@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../redux/actions";
@@ -7,6 +7,7 @@ import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 
 const LoginPage = () => {
+  const history = useHistory();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -14,6 +15,7 @@ const LoginPage = () => {
   const [errors, setErrors] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const loading = useSelector((state) => state.auth.loading);
 
   const handleChange = (e) =>
