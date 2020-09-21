@@ -22,10 +22,12 @@ const RankingPage = () => {
     history.push(`/shops/${id}`);
   };
 
+  console.log(currentUser);
+
   return (
     <div className="ranking-container">
       <div className="text-center">
-        {currentUser?.role === "owner" || "admin" ? (
+        {currentUser?.role === "owner" || currentUser?.role === "admin" ? (
           <div>
             <p
               style={{

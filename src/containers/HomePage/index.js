@@ -42,7 +42,12 @@ const HomePage = () => {
                 aria-describedby="basic-addon2"
               />
               <InputGroup.Append>
-                <Button variant="outline-secondary">Search</Button>
+                <Button
+                  variant="outline-secondary"
+                  onClick={(keyword) => history.push(`/search?q=${keyword}`)}
+                >
+                  Search
+                </Button>
               </InputGroup.Append>
             </InputGroup>
           </div>

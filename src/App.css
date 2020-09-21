@@ -109,3 +109,12 @@
   padding: 5% 10% 5% 10%;
   margin: 5% 10% 5% 10%;
 }
+
+.search-container {
+  background-color: #f2efec;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5% 10% 5% 10%;
+  margin: 5% 10% 5% 10%;
+}

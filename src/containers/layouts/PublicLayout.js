@@ -39,7 +39,7 @@ const PublicLayout = () => {
         <Route exact path="/events" component={EventPage} />
         <Route exact path="/events/:id" component={EventDetailPage} />
 
-        <Route exact path="/searchresult" component={SearchResultPage} />
+        <Route exact path="/search" component={SearchResultPage} />
 
         <Route exact path="/gears" component={GearsPage} />
         <Route exact path="/master" component={MasterPage} />

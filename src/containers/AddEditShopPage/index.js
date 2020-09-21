@@ -9,6 +9,7 @@ import {
   // geocodeByPlaceId,
   getLatLng,
 } from "react-places-autocomplete";
+import TimePicker from "react-bootstrap-time-picker";
 
 const tagTypes = ["modern", "traditional", "specialty", "dessert", "brunch"];
 
@@ -22,7 +23,10 @@ const AddEditShopPage = () => {
     phone: "",
     tags: [],
     coords: [],
+    openHour: "",
+    closeHour: "",
   });
+  console.log("data: ", formData);
   const params = useParams();
   const dispatch = useDispatch();
   const addOrEdit = params.id ? "Edit" : "Add";
@@ -35,8 +39,22 @@ const AddEditShopPage = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  console.log(formData);
 
+  const handleChangeOpenTime = (time) => {
+    const dateTime = new Date(time * 1000).toISOString().substr(11, 8);
+    setFormData({
+      ...formData,
+      openHour: dateTime,
+    });
+  };
+
+  const handleChangeCloseTime = (time) => {
+    const dateTime = new Date(time * 1000).toISOString().substr(11, 8);
+    setFormData({
+      ...formData,
+      closeHour: dateTime,
+    });
+  };
   const handleChangeTags = (e, tag) => {
     console.log(e.target.checked, tag);
     if (e.target.checked) {
@@ -60,6 +78,11 @@ const AddEditShopPage = () => {
   const handleChangeAddress = (address) => {
     setFormData({ ...formData, address });
   };
+
+  // const handleChangeOnDistrict = (e) => {
+  //   console.log(e.target.name);
+  //   setFormData({ ...formData, district: e.target.value });
+  // };
 
   const handleSelect = (address) => {
     geocodeByAddress(address)
@@ -294,6 +317,34 @@ const AddEditShopPage = () => {
                 />
               ))}
             </Form.Group>
+            <Form.Group>
+              <Form.Label className="mr-3">Business Hour</Form.Label>
+              <Row>
+                <Col>
+                  <span>Open Hour</span>
+                  <TimePicker
+                    start="00:00"
+                    end="23:59"
+                    step={30}
+                    name="openHour"
+                    value={formData.openHour}
+                    onChange={handleChangeOpenTime}
+                  />
+                </Col>
+                <Col>
+                  <span>Close Hour</span>
+                  <TimePicker
+                    start="00:00"
+                    end="23:59"
+                    step={30}
+                    name="closeHour"
+                    value={formData.closeHour}
+                    onChange={handleChangeCloseTime}
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
+
             <ButtonGroup className="d-flex mb-3">
               {loading ? (
                 <Button className="mr-3" variant="dark" type="button" disabled>

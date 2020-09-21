@@ -30,28 +30,10 @@ const getSingleShop = (shopId) => async (dispatch) => {
   }
 };
 
-const createNewShop = ({
-  name,
-  owner,
-  address,
-  district,
-  phone,
-  tags,
-  coords,
-  images,
-}) => async (dispatch) => {
+const createNewShop = (formData) => async (dispatch) => {
   dispatch({ type: types.CREATE_SHOP_REQUEST, payload: null });
   try {
-    const res = await api.post("/shops", {
-      name,
-      owner,
-      address,
-      district,
-      phone,
-      tags,
-      coords,
-      images,
-    });
+    const res = await api.post("/shops", formData);
     dispatch({
       type: types.CREATE_SHOP_SUCCESS,
       payload: res.data.data,
@@ -62,13 +44,10 @@ const createNewShop = ({
   }
 };
 
-const updateShop = (
-  shopId,
-  { name, owner, district, address, phone, coords, images }
-) => async (dispatch) => {
+const updateShop = (shopId, formData) => async (dispatch) => {
   dispatch({ type: types.UPDATE_SHOP_REQUEST, payload: null });
   try {
-    const res = await api.put(`/shops/${shopId}`, { name, owner });
+    const res = await api.put(`/shops/${shopId}`, formData);
     dispatch({
       type: types.UPDATE_SHOP_SUCCESS,
       payload: res.data.data,

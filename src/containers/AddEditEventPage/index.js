@@ -3,15 +3,30 @@ import { Form, Button, Row, Col, ButtonGroup } from "react-bootstrap";
 import { eventActions } from "../../redux/actions";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import TimePicker from "react-bootstrap-time-picker";
+import DatePicker from "react-datepicker";
+import PlacesAutocomplete from "react-places-autocomplete";
+import {
+  geocodeByAddress,
+  // geocodeByPlaceId,
+  getLatLng,
+} from "react-places-autocomplete";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddEditEventPage = () => {
   const [formData, setFormData] = useState({
     title: "",
-    owner: "",
+    // owner: "",
+    shop: "",
     images: null,
     description: "",
     address: "",
+    coords: [],
     phone: "",
+    date: "",
+    startHour: "",
+    endHour: "",
   });
   const params = useParams();
   const dispatch = useDispatch();
@@ -35,6 +50,46 @@ const AddEditEventPage = () => {
     } else if (addOrEdit === "Edit") {
       dispatch(eventActions.updateEvent(selectedEvent._id, formData));
     }
+  };
+
+  const handleChangeStartTime = (time) => {
+    const dateTime = new Date(time * 1000).toISOString().substr(11, 8);
+    setFormData({
+      ...formData,
+      startHour: dateTime,
+    });
+  };
+
+  const handleChangeEndTime = (time) => {
+    const dateTime = new Date(time * 1000).toISOString().substr(11, 8);
+    setFormData({
+      ...formData,
+      endHour: dateTime,
+    });
+  };
+
+  const handleChangeDate = (date) => {
+    setFormData({
+      ...formData,
+      date: date,
+    });
+  };
+  console.log("date :", formData);
+
+  const handleSelect = (address) => {
+    geocodeByAddress(address)
+      .then(async (results) => {
+        const foo = await getLatLng(results[0]);
+        return [foo, results[0].formatted_address];
+      })
+      .then(([latLng, address]) =>
+        setFormData({ ...formData, coords: [latLng.lng, latLng.lat], address })
+      )
+      .catch((error) => console.error("Error", error));
+  };
+
+  const handleChangeAddress = (address) => {
+    setFormData({ ...formData, address });
   };
 
   const handleCancel = () => {
@@ -120,7 +175,7 @@ const AddEditEventPage = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group>
+            {/* <Form.Group>
               <Form.Label>Owner Name</Form.Label>
               <Form.Control
                 type="text"
@@ -131,6 +186,55 @@ const AddEditEventPage = () => {
                 onChange={handleChange}
                 disabled={currentUser?.role === "owner"}
               />
+            </Form.Group> */}
+            <Form.Group>
+              <Form.Label>Store Name</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                placeholder="Store Name"
+                name="shop"
+                value={formData.shop}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label className="mr-3">Event Date</Form.Label>
+              <DatePicker
+                selected={formData.date}
+                name="date"
+                value={formData.date}
+                onChange={handleChangeDate}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label className="mr-3">Event Hour</Form.Label>
+              <Row>
+                <Col>
+                  <span>Start Hour</span>
+                  <TimePicker
+                    start="00:00"
+                    end="23:59"
+                    step={30}
+                    name="startHour"
+                    value={formData.startHour}
+                    onChange={handleChangeStartTime}
+                  />
+                </Col>
+                <Col>
+                  <span> End Hour</span>
+                  <TimePicker
+                    start="00:00"
+                    end="23:59"
+                    step={30}
+                    name="endHour"
+                    value={formData.endHour}
+                    onChange={handleChangeEndTime}
+                  />
+                </Col>
+              </Row>
             </Form.Group>
             <Form.Group>
               <Form.Label>Event Description</Form.Label>
@@ -142,6 +246,54 @@ const AddEditEventPage = () => {
                 value={formData.description}
                 onChange={handleChange}
               />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Street Address</Form.Label>
+              <PlacesAutocomplete
+                value={formData.address}
+                onChange={handleChangeAddress}
+                onSelect={handleSelect}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading,
+                }) => (
+                  <div>
+                    <input
+                      {...getInputProps({
+                        placeholder: "Street Adrress",
+                        className: "location-search-input",
+                      })}
+                    />
+                    <div className="autocomplete-dropdown-container">
+                      {loading && <div>Loading...</div>}
+                      {suggestions.map((suggestion) => {
+                        const className = suggestion.active
+                          ? "suggestion-item--active"
+                          : "suggestion-item";
+                        // inline style for demonstration purpose
+                        const style = suggestion.active
+                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                          : { backgroundColor: "#ffffff", cursor: "pointer" };
+                        return (
+                          <div
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style,
+                            })}
+                            key={suggestion.placeId}
+                          >
+                            <span>{suggestion.description}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
             </Form.Group>
 
             <Form.Group>

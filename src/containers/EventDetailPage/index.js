@@ -32,7 +32,8 @@ const EventDetailPage = () => {
               <Row>
                 <Col md={{ span: 6, offset: 3 }}>
                   <h1>{event.title}</h1>
-                  {currentUser?.role === "owner" || "admin" ? (
+                  {currentUser?.role === "owner" ||
+                  currentUser?.role === "admin" ? (
                     <Link to={`/event/edit/${event._id}`}>
                       <Button variant="primary">Edit</Button>
                     </Link>

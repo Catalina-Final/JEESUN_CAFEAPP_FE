@@ -55,7 +55,8 @@ const ShopDetailPage = () => {
               <Row>
                 <Col md={{ span: 6, offset: 3 }}>
                   <h1>{shop.name}</h1>
-                  {currentUser?.role === "owner" || "admin" ? (
+                  {currentUser?.role === "owner" ||
+                  currentUser?.role === "admin" ? (
                     <Link to={`/shop/edit/${shop._id}`}>
                       <Button variant="primary">Edit</Button>
                     </Link>
@@ -66,6 +67,14 @@ const ShopDetailPage = () => {
                   )}
 
                   <hr />
+                  <img
+                    src={
+                      shop?.images?.length
+                        ? shop.images[0]
+                        : "https://via.placeholder.com/160x100"
+                    }
+                    style={{ width: "20rem", height: "15rem" }}
+                  />
                   <p>
                     <span className="detail-item">Store Name:</span>{" "}
                     <span>{shop.name} </span>
@@ -79,6 +88,7 @@ const ShopDetailPage = () => {
                           <Link to={`/tags?q=${e}`}> {e}</Link>
                         ))}
                     </span>
+                    {/* <Badge variant="secondary">{shop.tags}</Badge> */}
                   </p>
 
                   <p>
