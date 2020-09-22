@@ -72,11 +72,12 @@ const deleteShop = (shopId) => async (dispatch) => {
   }
 };
 
-const createReview = (shopId, reviewText) => async (dispatch) => {
+const createReview = (shopId, reviewText, useRating) => async (dispatch) => {
   dispatch({ type: types.CREATE_REVIEW_REQUEST, payload: null });
   try {
     const res = await api.post(`/shops/${shopId}/reviews`, {
       content: reviewText,
+      rating: useRating,
     });
     dispatch({
       type: types.CREATE_REVIEW_SUCCESS,

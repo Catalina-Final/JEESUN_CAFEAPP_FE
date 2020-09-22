@@ -19,9 +19,10 @@ const ReviewContent = ({ review }) => {
   return (
     <div>
       <span>{review?.content}</span>
+      <span>{review?.rating}</span>
       <br />
       <span>posted by </span>
-      <span>{review?.reviewer?.name}</span>
+      <span>{review.reviews?.reviewer?.name} name</span>
       <span> on </span>
       <span>
         <Moment fromNow>{review?.createdAt}</Moment>

@@ -44,7 +44,6 @@ const AddEditEventPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (addOrEdit === "Add") {
       dispatch(eventActions.createNewEvent(formData));
     } else if (addOrEdit === "Edit") {
@@ -105,6 +104,10 @@ const AddEditEventPage = () => {
       setFormData((formData) => ({ ...formData, owner: currentUser.name }));
     }
   }, [currentUser]);
+
+  // useEffect(() => {
+  //   dispatch(event);
+  // }, [[]]);
 
   useEffect(() => {
     if (redirectTo) {
@@ -187,7 +190,7 @@ const AddEditEventPage = () => {
                 disabled={currentUser?.role === "owner"}
               />
             </Form.Group> */}
-            <Form.Group>
+            {/* <Form.Group>
               <Form.Label>Store Name</Form.Label>
               <Form.Control
                 type="text"
@@ -197,6 +200,26 @@ const AddEditEventPage = () => {
                 value={formData.shop}
                 onChange={handleChange}
               />
+            </Form.Group> */}
+            <Form.Group>
+              <Form.Label>District</Form.Label>
+
+              <Form.Control
+                as="select"
+                required
+                className="mr-sm-2"
+                id="inlineFormCustomSelect"
+                custom
+                name="shop"
+                value={formData.shop}
+                onChange={handleChange}
+              >
+                {currentUser?.shops?.map((shop) => (
+                  <option key={shop._id} value={shop._id}>
+                    {shop.name}
+                  </option>
+                ))}
+              </Form.Control>
             </Form.Group>
 
             <Form.Group>

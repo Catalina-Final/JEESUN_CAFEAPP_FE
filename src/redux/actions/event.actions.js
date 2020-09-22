@@ -28,24 +28,10 @@ const getSingleEvent = (eventId) => async (dispatch) => {
   }
 };
 
-const createNewEvent = ({
-  images,
-  title,
-  owner,
-  address,
-  phone,
-  description,
-}) => async (dispatch) => {
+const createNewEvent = (formData) => async (dispatch) => {
   dispatch({ type: types.CREATE_EVENT_REQUEST, payload: null });
   try {
-    const res = await api.post("/events", {
-      images,
-      title,
-      owner,
-      address,
-      phone,
-      description,
-    });
+    const res = await api.post("/events", formData);
     dispatch({ type: types.CREATE_EVENT_SUCCESS, payload: res.data.data });
     dispatch(alertActions.setAlert("New event has been created!", "success"));
   } catch (error) {

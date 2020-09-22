@@ -20,10 +20,9 @@ const authReducer = (state = initialState, action) => {
     case types.LOGIN_GOOGLE_SUCCESS:
       localStorage.setItem("accessToken", payload.accessToken);
       // console.log(payload.accessToken);
-
       return {
         ...state,
-        user: { ...payload.data.user },
+        user: { ...payload.user },
         accessToken: payload.accessToken,
         loading: false,
         isAuthenticated: true,

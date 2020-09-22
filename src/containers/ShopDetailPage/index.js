@@ -16,11 +16,13 @@ const ShopDetailPage = () => {
   const loading = useSelector((state) => state.shop.loading);
   const shop = useSelector((state) => state.shop.selectedShop);
   const currentUser = useSelector((state) => state.auth.user);
+  const [userRating, setUserRating] = useState(5);
   // const history = useHistory();
   const submitReviewLoading = useSelector(
     (state) => state.shop.submitReviewLoading
   );
   const [reviewText, setReviewText] = useState("");
+
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const handleInputChange = (e) => {
@@ -30,7 +32,7 @@ const ShopDetailPage = () => {
 
   const handleSubmitReview = (e) => {
     e.preventDefault();
-    dispatch(shopActions.createReview(shop._id, reviewText));
+    dispatch(shopActions.createReview(shop._id, reviewText, userRating));
     setReviewText("");
     console.log("review submit :", reviewText);
   };
@@ -43,7 +45,7 @@ const ShopDetailPage = () => {
     // dispatch(authActions.getCurrentUser());
   }, [dispatch, params]);
 
-  console.log(currentUser);
+  console.log(userRating);
   return (
     <div className="shop-detail-container">
       {loading ? (
@@ -75,10 +77,10 @@ const ShopDetailPage = () => {
                     }
                     style={{ width: "20rem", height: "15rem" }}
                   />
-                  <p>
+                  {/* <p>
                     <span className="detail-item">Store Name:</span>{" "}
                     <span>{shop.name} </span>
-                  </p>
+                  </p> */}
 
                   <p>
                     <span className="detail-item"> #Tag:</span>{" "}
@@ -105,10 +107,10 @@ const ShopDetailPage = () => {
                       from {shop.openHour} to {shop.closeHour}
                     </span>
                   </p>
-                  <p>
+                  {/* <p>
                     <span className="detail-item"> Upcoming Event: </span>{" "}
-                    <span>{shop.event}</span>
-                  </p>
+                    <span>{shop.events}</span>
+                  </p> */}
                   <hr />
                   <ReviewList reviews={shop.reviews} />
                   <hr />
@@ -119,6 +121,7 @@ const ShopDetailPage = () => {
           {isAuthenticated && (
             <ReviewShop
               reviewText={reviewText}
+              ratingChanged={(v) => setUserRating(v)}
               handleInputChange={handleInputChange}
               handleSubmitReview={handleSubmitReview}
               loading={submitReviewLoading}

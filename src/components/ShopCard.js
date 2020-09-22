@@ -28,7 +28,7 @@ const ShopCard = ({ shop, handleClick }) => {
           </Col>
           <Col xs={5}>
             <Card.Text>Average ratings:{shop.ratingCount}</Card.Text>
-            <Card.Text>Totla reviews: {shop.reviewCount}</Card.Text>
+            <Card.Text>Total reviews: {shop.reviewCount}</Card.Text>
             <Card.Text>Favorited numbers: {shop.favoriteUserCount}</Card.Text>
           </Col>
         </Row>
