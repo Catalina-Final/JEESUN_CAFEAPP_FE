@@ -1,4 +1,5 @@
 import * as types from "../constants/shop.constants";
+import * as authTypes from "../constants/auth.constants";
 import api from "../api";
 import { alertActions } from "./alert.actions";
 
@@ -88,6 +89,43 @@ const createReview = (shopId, reviewText, useRating) => async (dispatch) => {
   }
 };
 
+const favoriteFromSingleShop = (shopId) => async (dispatch) => {
+  dispatch({ type: types.CREATE_FAVORITE_REQUEST, payload: null });
+  try {
+    const res = await api.post(`/shops/${shopId}/favorite`, {});
+    dispatch({
+      type: authTypes.UPDATE_SHOP_FAVORITE_COUNT,
+      payload: res.data.data.user.favorites,
+    });
+    dispatch({
+      type: types.CREATE_FAVORITE_SUCCESS,
+      payload: res.data.data.shop.favoriteUserCount,
+    });
+  } catch (error) {
+    dispatch({ type: types.CREATE_FAVORITE_FAILURE, payload: error });
+  }
+};
+
+const favoriteFromShopList = (shopId) => async (dispatch) => {
+  dispatch({ type: types.CREATE_FAVORITE_REQUEST, payload: null });
+  try {
+    const res = await api.post(`/shops/${shopId}/favorite`, {});
+    dispatch({
+      type: authTypes.UPDATE_SHOP_FAVORITE_COUNT,
+      payload: res.data.data.user.favorites,
+    });
+
+    dispatch({
+      type: types.CREATE_FAVORITE_FROM_LIST_SUCCESS,
+      payload: {
+        shopId,
+        data: res.data.data.shop.favoriteUserCount,
+      },
+    });
+  } catch (error) {
+    dispatch({ type: types.CREATE_FAVORITE_FAILURE, payload: error });
+  }
+};
 const setRedirectTo = (redirectTo) => ({
   type: types.SET_REDIRECT_TO,
   payload: redirectTo,
@@ -100,5 +138,7 @@ export const shopActions = {
   updateShop,
   deleteShop,
   createReview,
+  favoriteFromShopList,
+  favoriteFromSingleShop,
   setRedirectTo,
 };

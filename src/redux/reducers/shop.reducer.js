@@ -76,6 +76,21 @@ const shopReducer = (state = initialState, action) => {
     case types.CREATE_REVIEW_FAILURE:
       return { ...state, submitLoading: false };
 
+    case types.CREATE_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        selectedShop: {
+          ...state.selectedShop,
+          favoriteUserCount: payload,
+        },
+      };
+    case types.CREATE_FAVORITE_FROM_LIST_SUCCESS:
+      const shopIdx = state.shops.findIndex((e) => e._id === payload.shopId);
+      state.shops[shopIdx].favoriteUserCount = payload.data;
+      return {
+        ...state,
+        shops: [...state.shops],
+      };
     case types.SET_REDIRECT_TO:
       return { ...state, redirectTo: payload };
     default:

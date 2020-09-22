@@ -9,6 +9,8 @@ import { Link, useParams } from "react-router-dom";
 import { shopActions } from "../../redux/actions";
 import ReviewList from "../../components/ReviewList";
 import ReviewShop from "../../components/ReviewShop";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const ShopDetailPage = () => {
   const params = useParams();
@@ -22,8 +24,9 @@ const ShopDetailPage = () => {
     (state) => state.shop.submitReviewLoading
   );
   const [reviewText, setReviewText] = useState("");
-
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  // const [favorited, setFavorited] = useState;
 
   const handleInputChange = (e) => {
     setReviewText(e.target.value);
@@ -35,6 +38,11 @@ const ShopDetailPage = () => {
     dispatch(shopActions.createReview(shop._id, reviewText, userRating));
     setReviewText("");
     console.log("review submit :", reviewText);
+  };
+
+  const handleOnFavorite = (e) => {
+    e.preventDefault();
+    dispatch(shopActions.favoriteFromSingleShop(shop._id));
   };
 
   console.log(shop);
@@ -56,6 +64,8 @@ const ShopDetailPage = () => {
             <div className="mb-5">
               <Row>
                 <Col md={{ span: 6, offset: 3 }}>
+                  {shop._id} <br />
+                  {shop.favoriteUserCount}
                   <h1>{shop.name}</h1>
                   {currentUser?.role === "owner" ||
                   currentUser?.role === "admin" ? (
@@ -67,7 +77,19 @@ const ShopDetailPage = () => {
                       edited <Moment fromNow>{shop.createdAt}</Moment>
                     </span>
                   )}
-
+                  <Button variant="link" className="click-button">
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      size="1x"
+                      className="click-button"
+                      style={{
+                        color: currentUser.favorites.includes(shop._id)
+                          ? "red"
+                          : "black",
+                      }}
+                      onClick={handleOnFavorite}
+                    />
+                  </Button>
                   <hr />
                   <img
                     src={
@@ -81,18 +103,19 @@ const ShopDetailPage = () => {
                     <span className="detail-item">Store Name:</span>{" "}
                     <span>{shop.name} </span>
                   </p> */}
-
                   <p>
                     <span className="detail-item"> #Tag:</span>{" "}
                     <span>
                       {shop.tags &&
                         shop.tags.map((e) => (
-                          <Link to={`/tags?q=${e}`}> {e}</Link>
+                          <Link key={e} to={`/search?q=${e}`}>
+                            {" "}
+                            {e}
+                          </Link>
                         ))}
                     </span>
                     {/* <Badge variant="secondary">{shop.tags}</Badge> */}
                   </p>
-
                   <p>
                     <span className="detail-item">Address:</span>{" "}
                     <span>{shop.address}</span>

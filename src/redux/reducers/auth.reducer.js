@@ -56,6 +56,24 @@ const authReducer = (state = initialState, action) => {
     case types.GET_CURRENT_USER_FAILURE:
       return { ...state, loading: false };
 
+    case types.UPDATE_SHOP_FAVORITE_COUNT:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          favorites: payload,
+        },
+      };
+
+    case types.UPDATE_EVENT_INTEREST_COUNT:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          interested: payload,
+        },
+      };
+
     case types.LOGOUT:
       return {
         ...state,

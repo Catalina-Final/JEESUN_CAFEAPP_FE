@@ -47,7 +47,7 @@ const AddEditEventPage = () => {
     if (addOrEdit === "Add") {
       dispatch(eventActions.createNewEvent(formData));
     } else if (addOrEdit === "Edit") {
-      dispatch(eventActions.updateEvent(selectedEvent._id, formData));
+      dispatch(eventActions.updateEvent(params.id, formData));
     }
   };
 
@@ -103,7 +103,22 @@ const AddEditEventPage = () => {
     if (currentUser.role && currentUser.role === "owner") {
       setFormData((formData) => ({ ...formData, owner: currentUser.name }));
     }
-  }, [currentUser]);
+    if (params && params.id && selectedEvent && selectedEvent._id) {
+      setFormData((formData) => ({
+        ...formData,
+        title: selectedEvent.title,
+        shop: selectedEvent.shop,
+        images: selectedEvent.images,
+        description: selectedEvent.description,
+        address: selectedEvent.address,
+        coords: selectedEvent.coords.coordinates,
+        phone: selectedEvent.phone,
+        // date: selectedEvent.date,
+        startHour: selectedEvent.startHour,
+        endHour: selectedEvent.endHour,
+      }));
+    }
+  }, [currentUser, params]);
 
   // useEffect(() => {
   //   dispatch(event);
@@ -202,7 +217,7 @@ const AddEditEventPage = () => {
               />
             </Form.Group> */}
             <Form.Group>
-              <Form.Label>District</Form.Label>
+              <Form.Label>Choose Your Shop</Form.Label>
 
               <Form.Control
                 as="select"
@@ -214,6 +229,7 @@ const AddEditEventPage = () => {
                 value={formData.shop}
                 onChange={handleChange}
               >
+                <option value=""></option>
                 {currentUser?.shops?.map((shop) => (
                   <option key={shop._id} value={shop._id}>
                     {shop.name}
@@ -229,6 +245,7 @@ const AddEditEventPage = () => {
                 name="date"
                 value={formData.date}
                 onChange={handleChangeDate}
+                required
               />
             </Form.Group>
 
@@ -322,7 +339,7 @@ const AddEditEventPage = () => {
             <Form.Group>
               <Form.Label>Contact Number</Form.Label>
               <Form.Control
-                type="number"
+                type="text"
                 placeholder="Contact Number"
                 name="phone"
                 value={formData.phone}

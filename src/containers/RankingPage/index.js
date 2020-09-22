@@ -21,7 +21,9 @@ const RankingPage = () => {
   const handleClickOnShop = (id) => {
     history.push(`/shops/${id}`);
   };
-
+  const handleOnFavorite = (id) => {
+    dispatch(shopActions.favoriteFromShopList(id));
+  };
   console.log(currentUser);
 
   return (
@@ -79,6 +81,10 @@ const RankingPage = () => {
                   handleClick={handleClickOnShop}
                   shop={shop}
                   key={shop._id}
+                  color={
+                    currentUser.favorites.includes(shop._id) ? "red" : "black"
+                  }
+                  handleOnFavorite={handleOnFavorite}
                 />
               ))}
             </div>

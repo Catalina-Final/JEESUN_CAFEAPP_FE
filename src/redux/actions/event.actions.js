@@ -1,5 +1,6 @@
 import * as types from "../constants/event.constants";
 import api from "../api";
+import * as authTypes from "../constants/auth.constants";
 import { alertActions } from "./alert.actions";
 
 const eventRequest = () => async (dispatch) => {
@@ -39,13 +40,10 @@ const createNewEvent = (formData) => async (dispatch) => {
   }
 };
 
-const updateEvent = (
-  eventId,
-  { images, title, owner, address, phone }
-) => async (dispatch) => {
+const updateEvent = (eventId, formData) => async (dispatch) => {
   dispatch({ type: types.UPDATE_EVENT_REQUEST, payload: null });
   try {
-    const res = await api.put(`/events/${eventId}`, { title, owner });
+    const res = await api.put(`/events/${eventId}`, formData);
     dispatch({ type: types.UPDATE_EVENT_SUCCESS, payload: res.data.data });
     dispatch(alertActions.setAlert("The event has been updated!", "success"));
   } catch (error) {
@@ -67,6 +65,23 @@ const deleteEvent = (eventId) => async (dispatch) => {
   }
 };
 
+const interestFromSingleEvent = (eventId) => async (dispatch) => {
+  dispatch({ type: types.CREATE_INTEREST_REQUEST, payload: null });
+  try {
+    const res = await api.put(`/events/${eventId}/interest`, {});
+    dispatch({
+      type: authTypes.UPDATE_EVENT_INTEREST_COUNT,
+      payload: res.data.data.user.interested,
+    });
+    dispatch({
+      type: types.CREATE_INTEREST_SUCCESS,
+      payload: res.data.data.event.interestedCount,
+    });
+  } catch (error) {
+    dispatch({ type: types.CREATE_INTEREST_FAILURE, payload: error });
+  }
+};
+
 const setRedirectTo = (redirectTo) => ({
   type: types.SET_REDIRECT_TO,
   payload: redirectTo,
@@ -78,5 +93,6 @@ export const eventActions = {
   createNewEvent,
   updateEvent,
   deleteEvent,
+  interestFromSingleEvent,
   setRedirectTo,
 };

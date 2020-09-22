@@ -1,10 +1,12 @@
 import React from "react";
-import { Card, Row, Col, Badge } from "react-bootstrap";
+import { Card, Row, Col, Badge, Button } from "react-bootstrap";
 // import Moment from "react-moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const ShopCard = ({ shop, handleClick }) => {
+const ShopCard = ({ shop, handleClick, color, handleOnFavorite }) => {
   return (
-    <div className="shop-card" onClick={() => handleClick(shop._id)}>
+    <div className="shop-card">
       <Card.Img
         variant="top"
         src={
@@ -17,7 +19,9 @@ const ShopCard = ({ shop, handleClick }) => {
       <Card.Body className="shop-card-body">
         <Row>
           <Col xs={6}>
-            <Card.Title>{shop.name}</Card.Title>
+            <Card.Title onClick={() => handleClick(shop._id)}>
+              {shop.name}
+            </Card.Title>
 
             <Badge variant="secondary">{shop.tags}</Badge>
 
@@ -27,9 +31,20 @@ const ShopCard = ({ shop, handleClick }) => {
             </div>
           </Col>
           <Col xs={5}>
-            <Card.Text>Average ratings:{shop.ratingCount}</Card.Text>
+            <Card.Text>Average ratings:{shop.avgRatings}</Card.Text>
             <Card.Text>Total reviews: {shop.reviewCount}</Card.Text>
             <Card.Text>Favorited numbers: {shop.favoriteUserCount}</Card.Text>
+            <Button variant="link" className="click-button">
+              <FontAwesomeIcon
+                icon={faHeart}
+                size="1x"
+                className="click-button"
+                style={{
+                  color: color,
+                }}
+                onClick={() => handleOnFavorite(shop._id)}
+              />
+            </Button>
           </Col>
         </Row>
       </Card.Body>

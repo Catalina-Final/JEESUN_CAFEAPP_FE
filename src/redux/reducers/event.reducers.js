@@ -2,6 +2,7 @@ import * as types from "../constants/event.constants";
 
 const initialState = {
   events: [],
+
   loading: false,
   selectedEvent: {},
 };
@@ -53,6 +54,17 @@ const eventReducer = (state = initialState, action) => {
       return { ...state, loading: false };
     case types.DELETE_EVENT_FAILURE:
       return { ...state, redirectTo: payload };
+
+    case types.CREATE_INTEREST_SUCCESS:
+      console.log(payload);
+      return {
+        ...state,
+        selectedEvent: {
+          ...state.selectedEvent,
+          interestedCount: payload.data,
+        },
+      };
+
     case types.SET_REDIRECT_TO:
       return { ...state, redirectTo: payload };
 
