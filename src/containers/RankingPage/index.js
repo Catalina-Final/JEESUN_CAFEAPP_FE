@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ShopCard from "../../components/ShopCard";
 import PaginationItem from "../../components/PaginationItem";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { shopActions } from "../../redux/actions";
@@ -27,74 +27,79 @@ const RankingPage = () => {
   console.log(currentUser);
 
   return (
-    <div className="ranking-container">
-      <div className="text-center">
-        {currentUser?.role === "owner" || currentUser?.role === "admin" ? (
-          <div>
-            <p
-              style={{
-                fontSize: "23px",
-                color: "black",
-                fontFamily: "serif",
-                marginTop: "3rem",
-              }}
-            >
-              Haven't uploaded yet? Add your cafe to our society.
-            </p>
-
-            <Button
-              variant="dark"
-              style={{
-                fontSize: "17px",
-                fontFamily: "monospace",
-                marginBottom: "5rem",
-              }}
-              onClick={() => history.push(`/shop/add`)} /////// or <Link to={`/shop/add}`}>
-            >
-              Add
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <p
-              style={{
-                fontSize: "23px",
-                color: "black",
-                fontFamily: "serif",
-                marginTop: "3rem",
-                marginBottom: "5rem",
-              }}
-            >
-              Check out our cafes!
-            </p>
-          </div>
-        )}
-      </div>
-      {loading ? (
-        <ClipLoader color="#f86c6b" size={150} loading={loading} />
-      ) : (
-        <>
-          {shops.length ? (
+    <div className="main-container">
+      <Container>
+        <div className="text-center">
+          {currentUser?.role === "owner" || currentUser?.role === "admin" ? (
             <div>
-              {shops.map((shop) => (
-                <ShopCard
-                  handleClick={handleClickOnShop}
-                  shop={shop}
-                  key={shop._id}
-                  color={
-                    currentUser.favorites.includes(shop._id) ? "red" : "black"
-                  }
-                  handleOnFavorite={handleOnFavorite}
-                />
-              ))}
+              <p
+                style={{
+                  fontSize: "23px",
+                  color: "rgb(54, 50, 50)",
+                  fontFamily: "Poppins, sans-serif",
+                  marginTop: "3rem",
+                }}
+              >
+                Haven't uploaded yet? Add your cafe to our society.
+              </p>
+
+              <Button
+                variant="dark"
+                style={{
+                  fontSize: "17px",
+                  fontFamily: "Montserrat, sansSerif",
+                  marginBottom: "5rem",
+                  backgroundColor: "#b7a986",
+                  border: "none",
+                }}
+                onClick={() => history.push(`/shop/add`)} /////// or <Link to={`/shop/add}`}>
+              >
+                Add
+              </Button>
             </div>
           ) : (
-            <p>There are no shops</p>
+            <div>
+              <p
+                style={{
+                  fontSize: "23px",
+                  color: "black",
+                  fontFamily: "serif",
+                  marginTop: "3rem",
+                  marginBottom: "5rem",
+                  fontFamily: "Montserrat, sansSerif",
+                }}
+              >
+                Check out our cafes!
+              </p>
+            </div>
           )}
-        </>
-      )}
+        </div>
+        {loading ? (
+          <ClipLoader color="#b7a986" size={150} loading={loading} />
+        ) : (
+          <>
+            {shops.length ? (
+              <div>
+                {shops.map((shop) => (
+                  <ShopCard
+                    handleClick={handleClickOnShop}
+                    shop={shop}
+                    key={shop._id}
+                    color={
+                      currentUser.favorites.includes(shop._id) ? "red" : "black"
+                    }
+                    handleOnFavorite={handleOnFavorite}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>There are no shops</p>
+            )}
+          </>
+        )}
 
-      <PaginationItem />
+        <PaginationItem />
+      </Container>
     </div>
   );
 };

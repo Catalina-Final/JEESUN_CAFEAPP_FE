@@ -24,7 +24,7 @@ function App() {
     <>
       {isAuthenticated === undefined ? (
         <div className="vh-100 vw-100 d-flex justify-content-center align-items-center">
-          <ClipLoader color="#f86c6b" size={150} loading={true} />
+          <ClipLoader color="#b7a986" size={150} loading={true} />
         </div>
       ) : (
         <Router>

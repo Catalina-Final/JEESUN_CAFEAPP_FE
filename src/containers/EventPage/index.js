@@ -4,7 +4,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { eventActions } from "../../redux/actions";
 // import EventCard from "../../components/EventCard";
@@ -55,77 +55,105 @@ const EventPage = () => {
       style: {
         ...children.style,
         // backgroundColor: "#f7f8f9",
-        // backgroundColor: value < CURRENT_DATE ? "lightgreen" : "lightblue",
+        backgroundColor: value < CURRENT_DATE ? "#D4C7A7" : "#FFBD59",
       },
     });
 
   return (
-    <div className="ranking-container">
-      <div className="text-center">
-        {currentUser?.role === "owner" || currentUser?.role === "admin" ? (
-          <div>
+    <div className="main-container montserrat mb-5">
+      <Container>
+        <div className="text-center">
+          {currentUser?.role === "owner" || currentUser?.role === "admin" ? (
+            <div>
+              <p
+                style={{
+                  fontSize: "23px",
+                  color: "rgb(54, 50, 50)",
+                  fontFamily: "Poppins, sans-serif",
+                  marginTop: "3rem",
+                }}
+              >
+                Do you have any upcoming events? Share with us.
+              </p>
+              <Button
+                variant="dark"
+                style={{
+                  fontSize: "17px",
+                  fontFamily: "Montserrat, sansSerif",
+                  marginBottom: "5rem",
+                  backgroundColor: "#F57F5B",
+                  border: "none",
+                }}
+                onClick={() => history.push("/event/add")} /////// or <Link to={`/event/add}`}>
+              >
+                Add
+              </Button>
+            </div>
+          ) : (
             <p
               style={{
                 fontSize: "23px",
                 color: "black",
                 fontFamily: "serif",
-                marginTop: "5rem",
-              }}
-            >
-              Do you have any upcoming events? Share with us.
-            </p>
-            <Button
-              variant="dark"
-              style={{
-                fontSize: "17px",
-                fontFamily: "monospace",
+                marginTop: "3rem",
                 marginBottom: "5rem",
+                fontFamily: "Poppins, sans-serif",
               }}
-              onClick={() => history.push("/event/add")} /////// or <Link to={`/event/add}`}>
             >
-              Add
-            </Button>
-          </div>
-        ) : (
-          <p
-            style={{
-              fontSize: "23px",
-              color: "black",
-              fontFamily: "serif",
-              marginTop: "3rem",
-              marginBottom: "5rem",
-            }}
-          >
-            Check out the upcoming events!
-          </p>
-        )}
-      </div>
-
-      {loading ? (
-        <ClipLoader color="#f86c6b" size={150} loading={loading} />
-      ) : (
-        <>
-          {events.length ? (
-            <div>
-              <Calendar
-                localizer={localizer}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                onSelectEvent={(event) => handleClickOnEvent(event._id)}
-                components={{
-                  // you have to pass your custom wrapper here
-                  // so that it actually gets used
-                  dateCellWrapper: ColoredDateCellWrapper,
-                }}
-                style={{ height: 500 }}
-              />
-            </div>
-          ) : (
-            <p>There are no events</p>
+              Check out the upcoming events!
+            </p>
           )}
-        </>
-      )}
+        </div>
+
+        {loading ? (
+          <ClipLoader color="#f86c6b" size={150} loading={loading} />
+        ) : (
+          <>
+            {events.length ? (
+              <div>
+                <Calendar
+                  localizer={localizer}
+                  events={events}
+                  startAccessor="start"
+                  endAccessor="end"
+                  onSelectEvent={(event) => handleClickOnEvent(event._id)}
+                  components={{
+                    // you have to pass your custom wrapper here
+                    // so that it actually gets used
+                    dateCellWrapper: ColoredDateCellWrapper,
+                  }}
+                  style={{ height: 500 }}
+                  eventPropGetter={(
+                    event,
+                    startAccessor,
+                    endAccessor,
+                    onSelectEvent
+                  ) => {
+                    let newStyle = {
+                      backgroundColor: "#f57f5b",
+                      color: "black",
+                      textAlign: "center",
+                      borderRadius: "10px",
+                      border: "none",
+                    };
+
+                    if (event.isMine) {
+                      newStyle.backgroundColor = "lightgreen";
+                    }
+
+                    return {
+                      className: "",
+                      style: newStyle,
+                    };
+                  }}
+                />
+              </div>
+            ) : (
+              <p>There are no events</p>
+            )}
+          </>
+        )}
+      </Container>
     </div>
   );
 };

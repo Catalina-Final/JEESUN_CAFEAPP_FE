@@ -25,6 +25,7 @@ const ReviewShop = ({
           />
           <ReactStars
             count={5}
+            required
             onChange={ratingChanged}
             size={24}
             activeColor="#ffd700"
@@ -36,7 +37,12 @@ const ReviewShop = ({
           />
         </Col>
         {loading ? (
-          <Button variant="primary" type="button" disabled>
+          <Button
+            variant="primary"
+            type="button"
+            disabled
+            style={{ backgroundColor: "#b7a986", border: "none" }}
+          >
             <span
               className="spinner-border spinner-border-sm"
               role="status"
@@ -45,7 +51,11 @@ const ReviewShop = ({
             Submitting...
           </Button>
         ) : (
-          <Button type="submit" disabled={!reviewText}>
+          <Button
+            type="submit"
+            disabled={!reviewText}
+            style={{ backgroundColor: "#b7a986", border: "none" }}
+          >
             Submit
           </Button>
         )}

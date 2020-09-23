@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col, ButtonGroup } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  ButtonGroup,
+  Container,
+} from "react-bootstrap";
 import { shopActions } from "../../redux/actions";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -152,13 +159,14 @@ const AddEditShopPage = () => {
 
   return (
     <div className="add-shop-container">
-      <Row>
-        <Col>
-          <Form onSubmit={handleSubmit}>
-            <div className="text-center mb-3">
-              <h1 className="text-dark">{addOrEdit} Shop</h1>
-            </div>
-            {/* <Form.Group>
+      <Container>
+        <Row>
+          <Col md={{ span: 6, offset: 3 }}>
+            <Form onSubmit={handleSubmit}>
+              <div className="text-center mb-3">
+                <h1 className="text-dark">{addOrEdit} Shop</h1>
+              </div>
+              {/* <Form.Group>
               <Form.File
                 id="exampleFormControlFile1"
                 label="Store Image"
@@ -169,215 +177,252 @@ const AddEditShopPage = () => {
                 onChange={handleChange}
               />
             </Form.Group> */}
-            <Form.Group>
-              {formData?.images?.map((image) => (
-                <img
-                  src={image}
-                  key={image}
-                  width="150px"
-                  height="150px"
-                  alt="blog images"
-                ></img>
-              ))}
-              <span
-                className="d-flex align-content-center flex-column align-items-center"
-                style={{ marginTop: "2rem" }}
-              >
-                <Button variant="info" onClick={uploadWidget}>
-                  {addOrEdit} Images
-                </Button>
-              </span>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Store Name</Form.Label>
-              <Form.Control
-                type="text"
-                required
-                placeholder="Store Name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Owner Name</Form.Label>
-              <Form.Control
-                type="text"
-                required
-                placeholder="Owner Name"
-                name="owner"
-                value={formData.owner}
-                onChange={handleChange}
-                disabled={currentUser?.role === "owner"}
-              />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Street Address</Form.Label>
-              <PlacesAutocomplete
-                value={formData.address}
-                onChange={handleChangeAddress}
-                onSelect={handleSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <div>
-                    <input
-                      {...getInputProps({
-                        placeholder: "Street Adrress",
-                        className: "location-search-input",
-                      })}
-                    />
-                    <div className="autocomplete-dropdown-container">
-                      {loading && <div>Loading...</div>}
-                      {suggestions.map((suggestion) => {
-                        const className = suggestion.active
-                          ? "suggestion-item--active"
-                          : "suggestion-item";
-                        // inline style for demonstration purpose
-                        const style = suggestion.active
-                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                          : { backgroundColor: "#ffffff", cursor: "pointer" };
-                        return (
-                          <div
-                            {...getSuggestionItemProps(suggestion, {
-                              className,
-                              style,
-                            })}
-                            key={suggestion.placeId}
-                          >
-                            <span>{suggestion.description}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </PlacesAutocomplete>
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>District</Form.Label>
-
-              <Form.Control
-                as="select"
-                required
-                className="mr-sm-2"
-                id="inlineFormCustomSelect"
-                custom
-                name="district"
-                value={formData.district}
-                onChange={handleChange}
-              >
-                <option value="0">Choose District</option>
-                <option value="1">Disctrict 1</option>
-                <option value="2">Disctrict 2</option>
-                <option value="3">Disctrict 3</option>
-                <option value="4">Disctrict 4</option>
-                <option value="5">Disctrict 5</option>
-                <option value="6">Disctrict 6</option>
-                <option value="7">Disctrict 7</option>
-                <option value="8">Disctrict 9</option>
-                <option value="9">Disctrict 10</option>
-                <option value="10">Disctrict 11</option>
-                <option value="11">Bình Thạnh District</option>
-                <option value="12">Gò Vấp District</option>
-                <option value="13">Phú Nhuận District</option>
-                <option value="14">Tân Bình District</option>
-                <option value="15">Tân Phú District</option>
-                <option value="16">etc</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Contact Number</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Contact Number"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label className="mr-3">Tags</Form.Label>
-              {tagTypes.map((type, index) => (
-                <Form.Check
-                  name="tags"
-                  key={index}
-                  inline
-                  label={type}
-                  type="checkbox"
-                  onChange={(e) => handleChangeTags(e, type)}
+              <Form.Group>
+                {formData?.images?.map((image) => (
+                  <img
+                    src={image}
+                    key={image}
+                    width="150px"
+                    height="150px"
+                    alt="blog images"
+                  ></img>
+                ))}
+                <span
+                  className="d-flex align-content-center flex-column align-items-center"
+                  style={{ marginTop: "2rem" }}
+                >
+                  <Button
+                    variant="info"
+                    onClick={uploadWidget}
+                    style={{
+                      backgroundColor: "#F57F5B",
+                      color: "white",
+                      border: "none",
+                    }}
+                  >
+                    {addOrEdit} Images
+                  </Button>
+                </span>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label className="label">Store Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="Store Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                 />
-              ))}
-            </Form.Group>
-            <Form.Group>
-              <Form.Label className="mr-3">Business Hour</Form.Label>
-              <Row>
-                <Col>
-                  <span>Open Hour</span>
-                  <TimePicker
-                    start="00:00"
-                    end="23:59"
-                    step={30}
-                    name="openHour"
-                    value={formData.openHour}
-                    onChange={handleChangeOpenTime}
-                  />
-                </Col>
-                <Col>
-                  <span>Close Hour</span>
-                  <TimePicker
-                    start="00:00"
-                    end="23:59"
-                    step={30}
-                    name="closeHour"
-                    value={formData.closeHour}
-                    onChange={handleChangeCloseTime}
-                  />
-                </Col>
-              </Row>
-            </Form.Group>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label className="label">Owner Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="Owner Name"
+                  name="owner"
+                  value={formData.owner}
+                  onChange={handleChange}
+                  disabled={currentUser?.role === "owner"}
+                />
+              </Form.Group>
 
-            <ButtonGroup className="d-flex mb-3">
-              {loading ? (
-                <Button className="mr-3" variant="dark" type="button" disabled>
-                  <span
-                    className="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  Submitting...
-                </Button>
-              ) : (
-                <Button className="mr-3" type="submit" variant="dark">
-                  Submit
-                </Button>
-              )}
-              <Button variant="light" onClick={handleCancel} disabled={loading}>
-                Cancel
-              </Button>
-            </ButtonGroup>
-            {addOrEdit === "Edit" && (
-              <ButtonGroup className="d-flex">
+              <Form.Group>
+                <Form.Label className="label">Street Address</Form.Label>
+                <PlacesAutocomplete
+                  value={formData.address}
+                  onChange={handleChangeAddress}
+                  onSelect={handleSelect}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
+                    <div>
+                      <input
+                        style={{ width: "34rem" }}
+                        {...getInputProps({
+                          placeholder: "Street Adrress",
+                          className: "location-search-input",
+                        })}
+                      />
+                      <div className="autocomplete-dropdown-container">
+                        {loading && <div>Loading...</div>}
+                        {suggestions.map((suggestion) => {
+                          const className = suggestion.active
+                            ? "suggestion-item--active"
+                            : "suggestion-item";
+                          // inline style for demonstration purpose
+                          const style = suggestion.active
+                            ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                            : { backgroundColor: "#ffffff", cursor: "pointer" };
+                          return (
+                            <div
+                              {...getSuggestionItemProps(suggestion, {
+                                className,
+                                style,
+                              })}
+                              key={suggestion.placeId}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">District</Form.Label>
+
+                <Form.Control
+                  as="select"
+                  required
+                  className="mr-sm-2"
+                  id="inlineFormCustomSelect"
+                  custom
+                  name="district"
+                  value={formData.district}
+                  onChange={handleChange}
+                >
+                  <option value="0">Choose District</option>
+                  <option value="1">Disctrict 1</option>
+                  <option value="2">Disctrict 2</option>
+                  <option value="3">Disctrict 3</option>
+                  <option value="4">Disctrict 4</option>
+                  <option value="5">Disctrict 5</option>
+                  <option value="6">Disctrict 6</option>
+                  <option value="7">Disctrict 7</option>
+                  <option value="8">Disctrict 9</option>
+                  <option value="9">Disctrict 10</option>
+                  <option value="10">Disctrict 11</option>
+                  <option value="11">Bình Thạnh District</option>
+                  <option value="12">Gò Vấp District</option>
+                  <option value="13">Phú Nhuận District</option>
+                  <option value="14">Tân Bình District</option>
+                  <option value="15">Tân Phú District</option>
+                  <option value="16">etc</option>
+                </Form.Control>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Contact Number</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="Contact Number"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label
+                  className="mr-3"
+                  className="label"
+                  style={{ marginRight: "1rem" }}
+                >
+                  Tags
+                </Form.Label>
+                {tagTypes.map((type, index) => (
+                  <Form.Check
+                    name="tags"
+                    key={index}
+                    inline
+                    label={type}
+                    type="checkbox"
+                    onChange={(e) => handleChangeTags(e, type)}
+                  />
+                ))}
+              </Form.Group>
+              <Form.Group>
+                <Form.Label className="mr-3" className="label">
+                  Business Hour
+                </Form.Label>
+                <Row>
+                  <Col>
+                    <span>
+                      <small>Open Hour</small>
+                    </span>
+
+                    <TimePicker
+                      start="00:00"
+                      end="23:59"
+                      step={30}
+                      name="openHour"
+                      value={formData.openHour}
+                      onChange={handleChangeOpenTime}
+                    />
+                  </Col>
+                  <Col>
+                    <span>
+                      <small>Close Hour</small>
+                    </span>
+                    <TimePicker
+                      start="00:00"
+                      end="23:59"
+                      step={30}
+                      name="closeHour"
+                      value={formData.closeHour}
+                      onChange={handleChangeCloseTime}
+                    />
+                  </Col>
+                </Row>
+              </Form.Group>
+
+              <ButtonGroup className="d-flex mb-3">
+                {loading ? (
+                  <Button
+                    className="mr-3"
+                    variant="dark"
+                    type="button"
+                    disabled
+                  >
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Submitting...
+                  </Button>
+                ) : (
+                  <Button
+                    className="mr-3"
+                    type="submit"
+                    variant="dark"
+                    style={{ backgroundColor: "#B7A986", border: "none" }}
+                  >
+                    Submit
+                  </Button>
+                )}
                 <Button
-                  variant="danger"
-                  onClick={handleDelete}
+                  variant="light"
+                  onClick={handleCancel}
                   disabled={loading}
                 >
-                  Delete Shop
+                  Cancel
                 </Button>
               </ButtonGroup>
-            )}
-          </Form>
-        </Col>
-      </Row>
+              {addOrEdit === "Edit" && (
+                <ButtonGroup className="d-flex">
+                  <Button
+                    variant="danger"
+                    onClick={handleDelete}
+                    disabled={loading}
+                  >
+                    Delete Shop
+                  </Button>
+                </ButtonGroup>
+              )}
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

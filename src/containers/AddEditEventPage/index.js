@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col, ButtonGroup } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  ButtonGroup,
+  Container,
+} from "react-bootstrap";
 import { eventActions } from "../../redux/actions";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -156,44 +163,53 @@ const AddEditEventPage = () => {
 
   return (
     <div className="add-shop-container">
-      <Row>
-        <Col>
-          <Form onSubmit={handleSubmit}>
-            <div className="text-center mb-3">
-              <h1 className="text-dark">{addOrEdit} Event</h1>
-            </div>
+      <Container>
+        <Row>
+          <Col md={{ span: 6, offset: 3 }}>
+            <Form onSubmit={handleSubmit}>
+              <div className="text-center mb-3">
+                <h1 className="text-dark">{addOrEdit} Event</h1>
+              </div>
 
-            <Form.Group>
-              {formData?.images?.map((image) => (
-                <img
-                  src={image}
-                  key={image}
-                  width="150px"
-                  height="150px"
-                  alt="event images"
-                ></img>
-              ))}
-              <span
-                className="d-flex align-content-center flex-column align-items-center"
-                style={{ marginTop: "2rem" }}
-              >
-                <Button variant="info" onClick={uploadWidget}>
-                  {addOrEdit} Images
-                </Button>
-              </span>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Event Title</Form.Label>
-              <Form.Control
-                type="text"
-                required
-                placeholder="Event Title"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            {/* <Form.Group>
+              <Form.Group>
+                {formData?.images?.map((image) => (
+                  <img
+                    src={image}
+                    key={image}
+                    width="150px"
+                    height="150px"
+                    alt="event images"
+                  ></img>
+                ))}
+                <span
+                  className="d-flex align-content-center flex-column align-items-center"
+                  style={{ marginTop: "2rem" }}
+                >
+                  <Button
+                    variant="info"
+                    onClick={uploadWidget}
+                    style={{
+                      backgroundColor: "#F57F5B",
+                      color: "white",
+                      border: "none",
+                    }}
+                  >
+                    {addOrEdit} Images
+                  </Button>
+                </span>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Event Title</Form.Label>
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="Event Title"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {/* <Form.Group>
               <Form.Label>Owner Name</Form.Label>
               <Form.Control
                 type="text"
@@ -205,7 +221,7 @@ const AddEditEventPage = () => {
                 disabled={currentUser?.role === "owner"}
               />
             </Form.Group> */}
-            {/* <Form.Group>
+              {/* <Form.Group>
               <Form.Label>Store Name</Form.Label>
               <Form.Control
                 type="text"
@@ -216,170 +232,190 @@ const AddEditEventPage = () => {
                 onChange={handleChange}
               />
             </Form.Group> */}
-            <Form.Group>
-              <Form.Label>Choose Your Shop</Form.Label>
+              <Form.Group>
+                <Form.Label>Choose Your Shop</Form.Label>
 
-              <Form.Control
-                as="select"
-                required
-                className="mr-sm-2"
-                id="inlineFormCustomSelect"
-                custom
-                name="shop"
-                value={formData.shop}
-                onChange={handleChange}
-              >
-                <option value=""></option>
-                {currentUser?.shops?.map((shop) => (
-                  <option key={shop._id} value={shop._id}>
-                    {shop.name}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
+                <Form.Control
+                  as="select"
+                  required
+                  className="mr-sm-2"
+                  id="inlineFormCustomSelect"
+                  custom
+                  name="shop"
+                  value={formData.shop}
+                  onChange={handleChange}
+                >
+                  <option value=""></option>
+                  {currentUser?.shops?.map((shop) => (
+                    <option key={shop._id} value={shop._id}>
+                      {shop.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label className="mr-3">Event Date</Form.Label>
-              <DatePicker
-                selected={formData.date}
-                name="date"
-                value={formData.date}
-                onChange={handleChangeDate}
-                required
-              />
-            </Form.Group>
+              <Form.Group>
+                <Form.Label className="mr-3">Event Date</Form.Label>
+                <DatePicker
+                  selected={formData.date}
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChangeDate}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Label className="mr-3">Event Hour</Form.Label>
-              <Row>
-                <Col>
-                  <span>Start Hour</span>
-                  <TimePicker
-                    start="00:00"
-                    end="23:59"
-                    step={30}
-                    name="startHour"
-                    value={formData.startHour}
-                    onChange={handleChangeStartTime}
-                  />
-                </Col>
-                <Col>
-                  <span> End Hour</span>
-                  <TimePicker
-                    start="00:00"
-                    end="23:59"
-                    step={30}
-                    name="endHour"
-                    value={formData.endHour}
-                    onChange={handleChangeEndTime}
-                  />
-                </Col>
-              </Row>
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Event Description</Form.Label>
-              <Form.Control
-                type="text"
-                required
-                placeholder="Event Description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Street Address</Form.Label>
-              <PlacesAutocomplete
-                value={formData.address}
-                onChange={handleChangeAddress}
-                onSelect={handleSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <div>
-                    <input
-                      {...getInputProps({
-                        placeholder: "Street Adrress",
-                        className: "location-search-input",
-                      })}
+              <Form.Group>
+                <Form.Label className="mr-3">Event Hour</Form.Label>
+                <Row>
+                  <Col>
+                    <span>
+                      <small>Start Hour</small>
+                    </span>
+                    <TimePicker
+                      start="00:00"
+                      end="23:59"
+                      step={30}
+                      name="startHour"
+                      value={formData.startHour}
+                      onChange={handleChangeStartTime}
                     />
-                    <div className="autocomplete-dropdown-container">
-                      {loading && <div>Loading...</div>}
-                      {suggestions.map((suggestion) => {
-                        const className = suggestion.active
-                          ? "suggestion-item--active"
-                          : "suggestion-item";
-                        // inline style for demonstration purpose
-                        const style = suggestion.active
-                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                          : { backgroundColor: "#ffffff", cursor: "pointer" };
-                        return (
-                          <div
-                            {...getSuggestionItemProps(suggestion, {
-                              className,
-                              style,
-                            })}
-                            key={suggestion.placeId}
-                          >
-                            <span>{suggestion.description}</span>
-                          </div>
-                        );
-                      })}
+                  </Col>
+                  <Col>
+                    <span>
+                      <small>End Hour</small>
+                    </span>
+                    <TimePicker
+                      start="00:00"
+                      end="23:59"
+                      step={30}
+                      name="endHour"
+                      value={formData.endHour}
+                      onChange={handleChangeEndTime}
+                    />
+                  </Col>
+                </Row>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Event Description</Form.Label>
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="Event Description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Street Address</Form.Label>
+                <PlacesAutocomplete
+                  value={formData.address}
+                  onChange={handleChangeAddress}
+                  onSelect={handleSelect}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
+                    <div>
+                      <input
+                        style={{ width: "34rem" }}
+                        {...getInputProps({
+                          placeholder: "Street Adrress",
+                          className: "location-search-input",
+                        })}
+                      />
+                      <div className="autocomplete-dropdown-container">
+                        {loading && <div>Loading...</div>}
+                        {suggestions.map((suggestion) => {
+                          const className = suggestion.active
+                            ? "suggestion-item--active"
+                            : "suggestion-item";
+                          // inline style for demonstration purpose
+                          const style = suggestion.active
+                            ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                            : { backgroundColor: "#ffffff", cursor: "pointer" };
+                          return (
+                            <div
+                              {...getSuggestionItemProps(suggestion, {
+                                className,
+                                style,
+                              })}
+                              key={suggestion.placeId}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
+                  )}
+                </PlacesAutocomplete>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Contact Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Contact Number"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <ButtonGroup className="d-flex mb-3">
+                {loading ? (
+                  <Button
+                    className="mr-3"
+                    variant="dark"
+                    type="button"
+                    disabled
+                  >
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Submitting...
+                  </Button>
+                ) : (
+                  <Button
+                    className="mr-3"
+                    type="submit"
+                    variant="dark"
+                    style={{ backgroundColor: "#B7A986", border: "none" }}
+                  >
+                    Submit
+                  </Button>
                 )}
-              </PlacesAutocomplete>
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Contact Number</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Contact Number"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <ButtonGroup className="d-flex mb-3">
-              {loading ? (
-                <Button className="mr-3" variant="dark" type="button" disabled>
-                  <span
-                    className="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  Submitting...
-                </Button>
-              ) : (
-                <Button className="mr-3" type="submit" variant="dark">
-                  Submit
-                </Button>
-              )}
-              <Button variant="light" onClick={handleCancel} disabled={loading}>
-                Cancel
-              </Button>
-            </ButtonGroup>
-            {addOrEdit === "Edit" && (
-              <ButtonGroup className="d-flex">
                 <Button
-                  variant="danger"
-                  onClick={handleDelete}
+                  variant="light"
+                  onClick={handleCancel}
                   disabled={loading}
                 >
-                  Delete Event
+                  Cancel
                 </Button>
               </ButtonGroup>
-            )}
-          </Form>
-        </Col>
-      </Row>
+              {addOrEdit === "Edit" && (
+                <ButtonGroup className="d-flex">
+                  <Button
+                    variant="danger"
+                    onClick={handleDelete}
+                    disabled={loading}
+                  >
+                    Delete Event
+                  </Button>
+                </ButtonGroup>
+              )}
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

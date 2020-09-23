@@ -39,7 +39,7 @@ const MasterPage = () => {
           </p>
         </div>
         {loading ? (
-          <ClipLoader color="#f86c6b" size={150} loading={loading} />
+          <ClipLoader color="#b7a986" size={150} loading={loading} />
         ) : (
           <Form noValidate validated={validated} className="text-left">
             <Form.Row>

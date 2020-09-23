@@ -17,16 +17,23 @@ const ReviewList = ({ reviews }) => {
 
 const ReviewContent = ({ review }) => {
   return (
-    <div>
-      <span>{review?.content}</span>
-      <span>{review?.rating}</span>
-      <br />
-      <span>posted by </span>
-      <span>{review.reviews?.reviewer?.name}</span>
-      <span> on </span>
-      <span>
-        <Moment fromNow>{review?.createdAt}</Moment>
+    <div className="d-flex align-content-center  align-items-center">
+      <span className="point">
+        {review.reviews?.reviewer?.name} luckymeday :{" "}
       </span>
+      <span> {review?.content}</span>
+      <div style={{ marginLeft: "1rem" }}>
+        <span>
+          <small> rated </small>
+          {review?.rating}{" "}
+        </span>
+        <span> {""}</span>
+        <span>
+          <small className={{ float: "right" }}>
+            ( <Moment fromNow>{review?.createdAt}</Moment>)
+          </small>
+        </span>
+      </div>
     </div>
   );
 };

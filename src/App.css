@@ -1,12 +1,69 @@
-.container {
+.red {
   border: red 1px solid;
-  padding: 3rem;
-  /* background-color: #b7a986 !important;
-  background-color: #f57f5b !important;
-  font-family: "Spartan", sans-serif; */
 }
-.top-bar {
-  background-color: #daceb2 !important;
+.white {
+  color: white;
+  font-size: smaller;
+  font-weight: bold;
+}
+.label {
+  color: #72684f;
+}
+.point {
+  /* color: #c57d10; */
+  color: #f57f5b;
+}
+.container {
+  padding: 3rem;
+}
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+}
+.montserrat-small {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+}
+/* --------- Public Navbar and Public Footer ---------*/
+.very-top-bar {
+  /* background-color: #f57f5b !important; */
+  background-color: #b7a986 !important;
+  font-family: "Montserrat", sans-serif;
+  height: 5vh;
+}
+.logo-top-bar {
+  background-color: white !important;
+  height: 15vh;
+  position: relative;
+}
+.navbar-logo {
+  position: absolute;
+  left: 50%;
+  margin-left: -90px !important;
+  margin-top: -30px !important;
+  display: block;
+  /* height: 20%; */
+  background-color: white !important;
+}
+.menu-top-bar {
+  background-color: white !important;
+  height: 5vh;
+}
+.menu-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: smaller;
+  font-family: "Montserrat", sans-serif;
+}
+.footer-menu {
+  font-size: 12px;
+}
+/* --------- Main Page ---------*/
+.main-container {
+  /* background-color: yellow; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12rem 0rem 0rem 0rem;
 }
 .jumbotron {
   background-image: url("../src/images/jumbo.png");
@@ -14,21 +71,39 @@
   background-position: center;
   background-size: cover;
   opacity: 1;
+  position: relative;
+}
+.search-box {
+  position: absolute;
+  /* left: 50%;
+  margin-left: -90px !important;
+  margin-top: -30px !important;
+  display: block; */
+}
+.insert-sentence {
+  font-family: "Poppins", sans-serif;
+  color: rgb(54, 50, 50);
+  /* font-family: 'Kumbh Sans', sans-serif; */
+}
+.card-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
 }
 .card {
   border: none !important;
 }
-
 .instagram-media {
   min-width: auto !important;
 }
-.ranking-container {
-  /* background-color: yellow; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5% 10% 5% 10%;
+.footer-container {
+  /* background-color: #f57f5b !important; */
+  background-color: #b7a986 !important;
+  height: 100%;
 }
+/* --------- Ranking Page ---------*/
 .shop-card {
   /* background-color: violet; */
   display: flex;
@@ -36,34 +111,62 @@
   width: auto;
   margin: 2rem 0 2rem 0;
   border: #b7a986 1px solid;
+  border-radius: 20px;
+  font-family: "Montserrat", sans-serif;
+  color: #554a32;
 }
-/* .shop-card-body {
-  background-color: pink;
-  display: flex;
-  flex-direction: column;
-  width: auto;
+.shop-card:hover {
+  background: #dacdaf !important;
+  border-color: transparent;
+  box-shadow: 0 0 5px 1px #c57d10;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.card-menu {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  margin: 5% 3% 0% 0%;
+}
+/* .pagination {
+  text-align: center;
+  padding-top: 20px;
 } */
-.add-shop-container {
+.pagination a {
+  color: #f57f5b;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+/* .pagination > li.active > a {
+  background-color: #2c2828 !important;
+} */
+.pagination > li > a:hover {
+  color: #e6dfdf;
+  background-color: #b7a986 !important;
+}
+/* --------- Shop Detail Page ---------*/
+.detail-container {
   background-color: #f2efec;
+  margin: 16% 10% 5% 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5% 10% 5% 10%;
-  margin: 5% 10% 5% 10%;
+  padding: 0rem 0rem 0rem 0rem;
 }
-.shop-detail-container {
-  background-color: #f2efec;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 3% 5% 0% 5%;
-  margin: 5% 10% 5% 10%;
-}
-
 .detail-item {
   margin: 5% 3% 0% 0%;
 }
-
+/* --------- AddEdit Shop Page ---------*/
+.add-shop-container {
+  background-color: #f2efec;
+  margin: 16% 10% 5% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0rem 0rem 0rem 0rem;
+  font-family: "Montserrat", sans-serif;
+}
+/* --------- Event Page ---------*/
 .month_default_event_inner {
   background: #999999;
   color: #fff;
@@ -71,27 +174,11 @@
   padding: 0px 10px;
   opacity: 0.8;
   border-radius: 5px;
-
   /* vertical centering */
   display: flex;
   align-items: center;
 }
-
-.event-container {
-  /* background-color: yellow; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5% 10% 5% 10%;
-}
-.event-detail-container {
-  background-color: #f2efec;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 3% 5% 0% 5%;
-  margin: 5% 10% 5% 10%;
-}
+/* --------- Event Detail Page ---------*/
 .add-event-container {
   background-color: #f2efec;
   display: flex;
