@@ -66,7 +66,9 @@ const EventDetailPage = () => {
                           </Link>
                         ) : (
                           <span className="text-muted">
-                            edited <Moment fromNow>{event.createdAt}</Moment>
+                            <small>
+                              edited <Moment fromNow>{event.createdAt}</Moment>
+                            </small>{" "}
                           </span>
                         )}
                       </Col>

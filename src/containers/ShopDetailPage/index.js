@@ -103,7 +103,10 @@ const ShopDetailPage = () => {
                           </Link>
                         ) : (
                           <span className="text-muted">
-                            edited <Moment fromNow>{shop.createdAt}</Moment>
+                            <small>
+                              {" "}
+                              edited <Moment fromNow>{shop.createdAt}</Moment>
+                            </small>
                           </span>
                         )}
                       </Col>
