@@ -3,9 +3,10 @@ import { Container } from "react-bootstrap";
 
 const GearsPage = () => {
   return (
-    <div className="main-container">
+    <div className="main-container m-5 montserrat label">
       <Container>
-        <h1>Beans and Gears</h1>
+        <h1>Page for our beans and gears shop</h1>
+        <div className="working-on"></div>
       </Container>
     </div>
   );

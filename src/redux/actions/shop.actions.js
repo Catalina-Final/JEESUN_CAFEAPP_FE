@@ -145,6 +145,36 @@ const favoriteFromShopList = (shopId) => async (dispatch) => {
     dispatch({ type: types.CREATE_FAVORITE_FAILURE, payload: error });
   }
 };
+
+const getUserFavoriteShops = (
+  userId,
+  pageNum = 1,
+  limit = 3,
+  query = null,
+  sortBy = null
+) => async (dispatch) => {
+  dispatch({ type: types.GET_USER_FAVORITE_SHOP_REQUEST, payload: null });
+  try {
+    let queryString = "";
+    if (query) {
+      queryString = `&name[$regex]=${query}&name[$options]=i`;
+    }
+    let sortByString = "";
+    if (sortBy?.key) {
+      sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
+    }
+    const res = await api.get(
+      `/shops/user/${userId}?page=${pageNum}&limit=${limit}${queryString}${sortByString}`
+    );
+    dispatch({
+      type: types.GET_USER_FAVORITE_SHOP_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch({ type: types.GET_USER_FAVORITE_SHOP_FAILURE, payload: error });
+  }
+};
+
 const setRedirectTo = (redirectTo) => ({
   type: types.SET_REDIRECT_TO,
   payload: redirectTo,
@@ -159,5 +189,6 @@ export const shopActions = {
   createReview,
   favoriteFromShopList,
   favoriteFromSingleShop,
+  getUserFavoriteShops,
   setRedirectTo,
 };

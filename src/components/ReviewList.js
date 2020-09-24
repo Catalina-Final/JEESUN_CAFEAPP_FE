@@ -17,9 +17,9 @@ const ReviewList = ({ reviews }) => {
 
 const ReviewContent = ({ review }) => {
   return (
-    <div className="d-flex align-content-center  align-items-center">
-      <span className="point">
-        {review.reviews?.reviewer?.name} luckymeday :{" "}
+    <div className="d-flex align-content-center align-items-center">
+      <span className="point" style={{ marginRight: "1rem" }}>
+        {review?.reviewer?.name}:{" "}
       </span>
       <span> {review?.content}</span>
       <div style={{ marginLeft: "1rem" }}>

@@ -107,10 +107,10 @@ const LoginPage = () => {
               <p>
                 Don't have an account?{" "}
                 <Link to="/register" className="point">
-                  Sing Up
+                  Sign Up
                 </Link>
               </p>
-              <div>
+              <div className="d-flex flex-column text-center mt-3">
                 <FacebookLogin
                   appId="719439585274379"
                   fields="name,email,picture"
@@ -120,9 +120,27 @@ const LoginPage = () => {
                   onFailure={(err) => {
                     console.log("FB LOGIN ERROR:", err);
                   }}
+                  containerStyle={{
+                    textAlign: "center",
+                    backgroundColor: "#3b5998",
+                    borderColor: "#3b5998",
+                    flex: 1,
+                    display: "flex",
+                    color: "#fff",
+                    cursor: "pointer",
+                    marginBottom: "3px",
+                  }}
+                  buttonStyle={{
+                    flex: 1,
+                    textTransform: "none",
+                    padding: "12px",
+                    background: "none",
+                    border: "none",
+                  }}
                 />
-                <span style={{ marginRight: "4rem" }}></span>
+
                 <GoogleLogin
+                  className="google-btn d-flex justify-content-center"
                   clientId="1006409012852-ek4fmm753gjgruoljlrkjnhuep75kdqq.apps.googleusercontent.com"
                   buttonText="LOGIN WITH GOOGLE"
                   onSuccess={loginWithGoogle}

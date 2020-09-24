@@ -48,7 +48,7 @@ const RankingPage = () => {
               <p
                 style={{
                   fontSize: "23px",
-                  color: "rgb(54, 50, 50)",
+                  color: "#72684f",
                   fontFamily: "Poppins, sans-serif",
                   marginTop: "3rem",
                 }}
@@ -62,7 +62,7 @@ const RankingPage = () => {
                   fontSize: "17px",
                   fontFamily: "Montserrat, sansSerif",
                   marginBottom: "5rem",
-                  backgroundColor: "#b7a986",
+                  backgroundColor: "#F57F5B",
                   border: "none",
                 }}
                 onClick={() => history.push(`/shop/add`)} /////// or <Link to={`/shop/add}`}>
@@ -75,8 +75,8 @@ const RankingPage = () => {
               <p
                 style={{
                   fontSize: "23px",
-                  color: "black",
-                  fontFamily: "Montserrat, sansSerif",
+                  color: "#72684f",
+                  fontFamily: "Poppins, sans-serif",
                   marginTop: "3rem",
                   marginBottom: "5rem",
                 }}

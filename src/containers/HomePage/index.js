@@ -56,7 +56,7 @@ const HomePage = () => {
               />
               <InputGroup.Append>
                 <Button
-                  style={{ border: "white" }}
+                  style={{ color: "#72684f", border: "none" }}
                   variant="outline-secondary"
                   type="submit"
                 >

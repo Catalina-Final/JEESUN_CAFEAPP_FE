@@ -68,7 +68,7 @@ const EventPage = () => {
               <p
                 style={{
                   fontSize: "23px",
-                  color: "rgb(54, 50, 50)",
+                  color: "#72684f",
                   fontFamily: "Poppins, sans-serif",
                   marginTop: "3rem",
                 }}
@@ -93,7 +93,7 @@ const EventPage = () => {
             <p
               style={{
                 fontSize: "23px",
-                color: "black",
+                color: "#72684f",
                 marginTop: "3rem",
                 marginBottom: "5rem",
                 fontFamily: "Poppins, sans-serif",

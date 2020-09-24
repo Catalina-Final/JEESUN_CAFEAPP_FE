@@ -111,11 +111,12 @@ const SearchResultPage = () => {
                 onChange={(e) => setKeyword(e.target.value)}
               />
               <InputGroup.Append>
-                <Button variant="outline-dark" type="submit">
-                  <i
-                    class="fas fa-search"
-                    style={{ color: "#72684f", border: "none" }}
-                  ></i>
+                <Button
+                  variant="outline-dark"
+                  type="submit"
+                  style={{ color: "#72684f", border: "none" }}
+                >
+                  <i class="fas fa-search" style={{ color: "#72684f" }}></i>
                 </Button>
               </InputGroup.Append>
             </InputGroup>

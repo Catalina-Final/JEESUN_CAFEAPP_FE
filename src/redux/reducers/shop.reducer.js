@@ -93,6 +93,17 @@ const shopReducer = (state = initialState, action) => {
         ...state,
         shops: [...state.shops],
       };
+    case types.GET_USER_FAVORITE_SHOP_REQUEST:
+      return { ...state, loading: true };
+    case types.GET_USER_FAVORITE_SHOP_SUCCESS:
+      return {
+        ...state,
+        shops: payload.shops.shops,
+        totalPageNum: payload.shops.totalPages,
+        loading: false,
+      };
+    case types.GET_USER_FAVORITE_SHOP_FAILURE:
+      return { ...state, loading: false };
     case types.SET_REDIRECT_TO:
       return { ...state, redirectTo: payload };
     default:

@@ -84,7 +84,7 @@ const MasterPage = () => {
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
-                  <Form.Label>Please introduce your self</Form.Label>
+                  <Form.Label>Please introduce yourself</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows="6"

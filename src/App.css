@@ -166,24 +166,12 @@
   padding: 0rem 0rem 0rem 0rem;
   font-family: "Montserrat", sans-serif;
 }
-/* --------- Event Page ---------*/
-/* .month_default_event_inner {
-  background: #999999;
-  color: #fff;
-  font-size: 12px;
-  padding: 0px 10px;
-  opacity: 0.8;
-  border-radius: 5px;
-  /* vertical centering */
-/* display: flex;
-  align-items: center;
-} */
-/* --------- Event Detail Page ---------
-.add-event-container {
-  background-color: #f2efec;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5% 10% 5% 10%;
-  margin: 5% 10% 5% 10%;
-} */
+/* --------- working-on Page ---------*/
+.working-on {
+  background-image: url("../src/images/brew.gif");
+  height: 70vh;
+  background-position: center;
+  background-size: cover;
+  opacity: 1;
+  position: relative;
+}
