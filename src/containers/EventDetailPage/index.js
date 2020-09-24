@@ -100,7 +100,7 @@ const EventDetailPage = () => {
                     <p>
                       <span className="detail-item label">Shop:</span>{" "}
                       <span
-                        className="label"
+                        className="point"
                         onClick={(id) => history.push(`/shops/${id}`)}
                       >
                         {event.shop && event.shop.name}
