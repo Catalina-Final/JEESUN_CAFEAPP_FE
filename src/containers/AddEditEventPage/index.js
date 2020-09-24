@@ -125,7 +125,7 @@ const AddEditEventPage = () => {
         endHour: selectedEvent.endHour,
       }));
     }
-  }, [currentUser, params]);
+  }, [currentUser, params, selectedEvent]);
 
   // useEffect(() => {
   //   dispatch(event);
@@ -162,7 +162,7 @@ const AddEditEventPage = () => {
   };
 
   return (
-    <div className="add-shop-container">
+    <div className="add-edit-container">
       <Container>
         <Row>
           <Col md={{ span: 6, offset: 3 }}>

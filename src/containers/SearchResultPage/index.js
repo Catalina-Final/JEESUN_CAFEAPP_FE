@@ -1,74 +1,250 @@
 import React, { useEffect, useState } from "react";
-import { Button, InputGroup, FormControl } from "react-bootstrap";
+import {
+  Button,
+  InputGroup,
+  FormControl,
+  Container,
+  Form,
+} from "react-bootstrap";
 import ShopCard from "../../components/ShopCard";
 import PaginationItem from "../../components/PaginationItem";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { shopActions } from "../../redux/actions";
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 const SearchResultPage = () => {
+  const [keyword, setKeyword] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const loading = useSelector((state) => state.shop.loading);
+  const [pageNum, setPageNum] = useState(1);
+  const totalPageNum = useSelector((state) => state.shop.totalPageNum);
+
   const shops = useSelector((state) => state.shop.shops);
   const history = useHistory();
+  const query = useQuery();
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.user);
+
+  const [district, setDistrict] = useState("");
+  const [tags, setTags] = useState("");
 
   useEffect(() => {
-    dispatch(shopActions.shopsRequest(1));
+    if (query.get("q")) {
+      console.log(query.get("q"));
+      searchHihi(query.get("q"), "name");
+    }
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (searchTerm) {
+  //     // console.log("useEffect okay?");
+  //     dispatch(shopActions.shopsRequest(pageNum, searchTerm, "name"));
+  //   } else if (district) {
+  //     // console.log("useEffect for district okay");
+  //     dispatch(shopActions.shopsRequest(pageNum, district, "district"));
+  //   } else if (tags) {
+  //     dispatch(shopActions.shopsRequest(pageNum, tags, "tags"));
+  //   }
+  // }, [dispatch, pageNum, searchTerm, district, tags]);
 
   const handleClickOnShop = (id) => {
     history.push(`/shops/${id}`);
   };
 
-  const searchByKeyword = (keyword) => {
-    dispatch(shopActions.shopsRequest(keyword));
-    console.log("keyword :", keyword);
+  const handleOnFavorite = (id) => {
+    dispatch(shopActions.favoriteFromShopList(id));
+  };
+
+  // const handleSubmitSearch = (e) => {
+  //   e.preventDefault();
+  //   history.push(`/search?q=${district}`);
+  // };
+
+  const searchByKeyword = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.keyword.value);
+    // let filteredList = shops;
+    // let keyword = e.tareget.value;
+    // if (e) {
+    //   console.log("keyword", keyword);
+    //   history.push(`/search?q=${keyword}`);
+    // }
+    // if (keyword) {
+    //   filteredList = shops.filter((shop) =>
+    //     shop.name.toLowerCase().includes(keyword.toLowerCase())
+    //   );
+    // }
+  };
+  const searchHihi = (term, option) => {
+    dispatch(shopActions.shopsRequest(null, term, option));
   };
 
   return (
-    <div className="search-container d-flex align-content-center align-items-center">
-      <div>
-        <InputGroup
-          className="inline"
-          style={{
-            width: "24rem",
-          }}
-        >
-          <FormControl
-            placeholder="Search Keyword "
-            name="keyword"
-            // value={keyword}
-            aria-describedby="basic-addon2"
-          />
-          <InputGroup.Append>
-            <Button variant="outline-dark" onClick={() => searchByKeyword()}>
-              Search
-            </Button>
-          </InputGroup.Append>
-        </InputGroup>
-      </div>
-      {loading ? (
-        <ClipLoader color="#f86c6b" size={150} loading={loading} />
-      ) : (
-        <>
-          {shops.length ? (
-            <div>
-              {shops.map((shop) => (
-                <ShopCard
-                  handleClick={handleClickOnShop}
-                  shop={shop}
-                  key={shop._id}
-                />
-              ))}
-            </div>
-          ) : (
-            <p>There are no shops</p>
-          )}
-        </>
-      )}
+    <div className="main-container montserrat">
+      <Container>
+        <div className="d-flex align-content-center flex-column align-items-center pb-5">
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setDistrict("");
+              setTags("");
+              searchHihi(e.target.keyword.value, "name");
+            }}
+          >
+            <InputGroup
+              className="inline"
+              style={{
+                width: "24rem",
+              }}
+            >
+              <FormControl
+                placeholder="Search Keyword"
+                name="keyword"
+                value={keyword}
+                aria-describedby="basic-addon2"
+                type="text"
+                onChange={(e) => setKeyword(e.target.value)}
+              />
+              <InputGroup.Append>
+                <Button variant="outline-dark" type="submit">
+                  <i class="fas fa-search" style={{ color: "#72684f" }}></i>
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form>
+          {/* ------------- search by district ------------ */}
+          <div className="d-flex" style={{ marginTop: "2rem" }}>
+            <Form style={{ marginRight: "1rem", width: "20rem" }}>
+              <Form.Label
+                className="label text-center mr-3"
+                style={{
+                  border: "none",
+                  backgroundColor: "#b7a986",
+                  borderRadius: "5px",
+                  paddingRight: "1rem",
+                  paddingLeft: "1rem",
+                  color: "white",
+                }}
+              >
+                Search by District
+              </Form.Label>
 
-      <PaginationItem />
+              <Form.Control
+                as="select"
+                required
+                className="mr-sm-2 "
+                id="inlineFormCustomSelect"
+                custom
+                name="district"
+                value={district}
+                onChange={(e) => {
+                  setKeyword("");
+                  setTags("");
+                  searchHihi(e.target.value, "district");
+                }}
+              >
+                {console.log("e.target.value: ", district)}
+                <option value="0">Choose District</option>
+                <option value="1">Disctrict 1</option>
+                <option value="2">Disctrict 2</option>
+                <option value="3">Disctrict 3</option>
+                <option value="4">Disctrict 4</option>
+                <option value="5">Disctrict 5</option>
+                <option value="6">Disctrict 6</option>
+                <option value="7">Disctrict 7</option>
+                <option value="8">Disctrict 9</option>
+                <option value="9">Disctrict 10</option>
+                <option value="10">Disctrict 11</option>
+                <option value="11">Bình Thạnh District</option>
+                <option value="12">Gò Vấp District</option>
+                <option value="13">Phú Nhuận District</option>
+                <option value="14">Tân Bình District</option>
+                <option value="15">Tân Phú District</option>
+                <option value="16">etc</option>
+              </Form.Control>
+            </Form>
+
+            {/* ------------- search by tag ------------ */}
+            <Form
+              style={{ width: "20rem" }}
+              // onSubmit={handleSubmitSearch}
+            >
+              <Form.Label
+                className="label text-center mr-3"
+                style={{
+                  border: "none",
+                  backgroundColor: "#f57f5b",
+                  borderRadius: "5px",
+                  paddingRight: "1rem",
+                  paddingLeft: "1rem",
+                  color: "white",
+                }}
+              >
+                Search by tags
+              </Form.Label>
+
+              <Form.Control
+                as="select"
+                required
+                className="mr-sm-2 "
+                id="inlineFormCustomSelect"
+                custom
+                name="tags"
+                value={tags}
+                defaultValue={tags}
+                onChange={(e) => {
+                  setKeyword("");
+                  setDistrict("");
+                  searchHihi(e.target.value, "tags");
+                }}
+              >
+                <option value="0">Choose a Tag</option>
+                <option value="modern">modern</option>
+                <option value="traditional">traditional</option>
+                <option value="specialty">specialty</option>
+                <option value="dessert">dessert</option>
+                <option value="brunch">brunch</option>
+              </Form.Control>
+            </Form>
+          </div>
+        </div>
+        {loading ? (
+          <ClipLoader color="#f86c6b" size={150} loading={loading} />
+        ) : (
+          <>
+            {shops.length ? (
+              <div>
+                {shops.map((shop) => (
+                  <ShopCard
+                    handleClick={handleClickOnShop}
+                    shop={shop}
+                    key={shop._id}
+                    color={
+                      currentUser?.favorites.includes(shop._id)
+                        ? "red"
+                        : "black"
+                    }
+                    handleOnFavorite={handleOnFavorite}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>There are no shops</p>
+            )}
+          </>
+        )}
+        <PaginationItem
+          pageNum={pageNum}
+          setPageNum={setPageNum}
+          totalPageNum={totalPageNum}
+          loading={loading}
+        />
+      </Container>
     </div>
   );
 };

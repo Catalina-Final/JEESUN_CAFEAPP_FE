@@ -158,7 +158,7 @@ const AddEditShopPage = () => {
   };
 
   return (
-    <div className="add-shop-container">
+    <div className="add-edit-container">
       <Container>
         <Row>
           <Col md={{ span: 6, offset: 3 }}>
@@ -184,7 +184,7 @@ const AddEditShopPage = () => {
                     key={image}
                     width="150px"
                     height="150px"
-                    alt="blog images"
+                    alt="shop images"
                   ></img>
                 ))}
                 <span
@@ -323,8 +323,7 @@ const AddEditShopPage = () => {
 
               <Form.Group>
                 <Form.Label
-                  className="mr-3"
-                  className="label"
+                  className="mr-3 label"
                   style={{ marginRight: "1rem" }}
                 >
                   Tags
@@ -341,9 +340,7 @@ const AddEditShopPage = () => {
                 ))}
               </Form.Group>
               <Form.Group>
-                <Form.Label className="mr-3" className="label">
-                  Business Hour
-                </Form.Label>
+                <Form.Label className="mr-3 label">Business Hour</Form.Label>
                 <Row>
                   <Col>
                     <span>

@@ -1,14 +1,14 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 
-const GearsPage = () => {
+const TastePage = () => {
   return (
     <div className="main-container">
       <Container>
-        <h1>Beans and Gears</h1>
+        <h1>How to taste Beans</h1>
       </Container>
     </div>
   );
 };
 
-export default GearsPage;
+export default TastePage;

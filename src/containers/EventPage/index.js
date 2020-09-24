@@ -55,7 +55,7 @@ const EventPage = () => {
       style: {
         ...children.style,
         // backgroundColor: "#f7f8f9",
-        backgroundColor: value < CURRENT_DATE ? "#D4C7A7" : "#FFBD59",
+        backgroundColor: value < CURRENT_DATE ? "#BF9767" : "#D4C7A7",
       },
     });
 
@@ -94,7 +94,6 @@ const EventPage = () => {
               style={{
                 fontSize: "23px",
                 color: "black",
-                fontFamily: "serif",
                 marginTop: "3rem",
                 marginBottom: "5rem",
                 fontFamily: "Poppins, sans-serif",

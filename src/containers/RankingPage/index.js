@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ShopCard from "../../components/ShopCard";
 import PaginationItem from "../../components/PaginationItem";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Dropdown } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { shopActions } from "../../redux/actions";
@@ -14,9 +14,12 @@ const RankingPage = () => {
   const shops = useSelector((state) => state.shop.shops);
   const currentUser = useSelector((state) => state.auth.user);
 
+  const [pageNum, setPageNum] = useState(1);
+  const totalPageNum = useSelector((state) => state.shop.totalPageNum);
+
   useEffect(() => {
-    dispatch(shopActions.shopsRequest(1));
-  }, [dispatch]);
+    dispatch(shopActions.shopsRequest(pageNum));
+  }, [dispatch, pageNum]);
 
   const handleClickOnShop = (id) => {
     history.push(`/shops/${id}`);
@@ -24,7 +27,17 @@ const RankingPage = () => {
   const handleOnFavorite = (id) => {
     dispatch(shopActions.favoriteFromShopList(id));
   };
-  console.log(currentUser);
+
+  const sortByRate = (direction) => {
+    let sortedList;
+    if (direction === "asc") {
+      sortedList = shops.sort((a, b) => a.avgRatings - b.avgRatings);
+    } else {
+      sortedList = shops.sort((a, b) => b.avgRatings - a.avgRatings);
+    }
+  };
+
+  // console.log(currentUser);
 
   return (
     <div className="main-container">
@@ -63,10 +76,9 @@ const RankingPage = () => {
                 style={{
                   fontSize: "23px",
                   color: "black",
-                  fontFamily: "serif",
+                  fontFamily: "Montserrat, sansSerif",
                   marginTop: "3rem",
                   marginBottom: "5rem",
-                  fontFamily: "Montserrat, sansSerif",
                 }}
               >
                 Check out our cafes!
@@ -78,6 +90,30 @@ const RankingPage = () => {
           <ClipLoader color="#b7a986" size={150} loading={loading} />
         ) : (
           <>
+            <Dropdown className="text-center">
+              <Dropdown.Toggle
+                variant="link"
+                className="dropdown"
+                id="dropdown-basic"
+              >
+                <p className="point">See by Rating</p>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  href="#/action-1"
+                  onClick={() => sortByRate("dsc")}
+                >
+                  Rating(high to low)
+                </Dropdown.Item>
+                <Dropdown.Item
+                  href="#/action-2"
+                  onClick={() => sortByRate("asc")}
+                >
+                  Rating(low to high)
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
             {shops.length ? (
               <div>
                 {shops.map((shop) => (
@@ -86,7 +122,9 @@ const RankingPage = () => {
                     shop={shop}
                     key={shop._id}
                     color={
-                      currentUser.favorites.includes(shop._id) ? "red" : "black"
+                      currentUser?.favorites.includes(shop._id)
+                        ? "red"
+                        : "black"
                     }
                     handleOnFavorite={handleOnFavorite}
                   />
@@ -97,8 +135,12 @@ const RankingPage = () => {
             )}
           </>
         )}
-
-        <PaginationItem />
+        <PaginationItem
+          pageNum={pageNum}
+          setPageNum={setPageNum}
+          totalPageNum={totalPageNum}
+          loading={loading}
+        />{" "}
       </Container>
     </div>
   );

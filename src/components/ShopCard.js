@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col, Badge, Button, Container } from "react-bootstrap";
+import { Card, Row, Col, Badge, Button } from "react-bootstrap";
 // import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -30,8 +30,9 @@ const ShopCard = ({ shop, handleClick, color, handleOnFavorite }) => {
             </Col>
 
             <Col xs={6}>
-              {shop.tags.map((tag) => (
+              {shop.tags.map((tag, i) => (
                 <Badge
+                  key={i}
                   style={{
                     marginLeft: "1rem",
                     width: "5rem",

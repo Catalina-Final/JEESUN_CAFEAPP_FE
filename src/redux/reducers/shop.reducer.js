@@ -4,6 +4,7 @@ const initialState = {
   shops: [],
   loading: false,
   pageNum: 1,
+  totalPageNum: 1,
   selectedShop: {},
   submitReviewLoading: false,
 };
@@ -15,10 +16,11 @@ const shopReducer = (state = initialState, action) => {
     case types.SHOP_REQUEST:
       return { ...state, loading: true };
     case types.SHOP_SUCCESS:
+      // console.log("shop reducer?", payload.shops.shops);
       return {
         ...state,
         shops: payload.shops.shops,
-        pageNum: payload.pageNum,
+        totalPageNum: payload.shops.totalPages,
         loading: false,
       };
     case types.SHOP_FAILURE:

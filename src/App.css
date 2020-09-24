@@ -157,7 +157,7 @@
   margin: 5% 3% 0% 0%;
 }
 /* --------- AddEdit Shop Page ---------*/
-.add-shop-container {
+.add-edit-container {
   background-color: #f2efec;
   margin: 16% 10% 5% 10%;
   display: flex;
@@ -167,7 +167,7 @@
   font-family: "Montserrat", sans-serif;
 }
 /* --------- Event Page ---------*/
-.month_default_event_inner {
+/* .month_default_event_inner {
   background: #999999;
   color: #fff;
   font-size: 12px;
@@ -175,10 +175,10 @@
   opacity: 0.8;
   border-radius: 5px;
   /* vertical centering */
-  display: flex;
+/* display: flex;
   align-items: center;
-}
-/* --------- Event Detail Page ---------*/
+} */
+/* --------- Event Detail Page ---------
 .add-event-container {
   background-color: #f2efec;
   display: flex;
@@ -186,22 +186,4 @@
   justify-content: center;
   padding: 5% 10% 5% 10%;
   margin: 5% 10% 5% 10%;
-}
-
-.master-container {
-  background-color: #f2efec;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5% 10% 5% 10%;
-  margin: 5% 10% 5% 10%;
-}
-
-.search-container {
-  background-color: #f2efec;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 5% 10% 5% 10%;
-  margin: 5% 10% 5% 10%;
-}
+} */

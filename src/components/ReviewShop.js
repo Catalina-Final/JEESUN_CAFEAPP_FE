@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 import ReactStars from "react-rating-stars-component";
 
 const ReviewShop = ({
@@ -28,7 +28,6 @@ const ReviewShop = ({
             required
             onChange={ratingChanged}
             size={24}
-            activeColor="#ffd700"
             isHalf={true}
             emptyIcon={<i className="far fa-star"></i>}
             halfIcon={<i className="fa fa-star-half-alt"></i>}

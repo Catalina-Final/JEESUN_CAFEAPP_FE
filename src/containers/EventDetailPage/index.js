@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
-import { Row, Col, Button, Card, Container } from "react-bootstrap";
+import { Row, Col, Button, Container } from "react-bootstrap";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Moment from "react-moment";
 import { eventActions } from "../../redux/actions";
@@ -50,7 +50,7 @@ const EventDetailPage = () => {
                             size="2x"
                             className="click-button"
                             style={{
-                              color: currentUser.interested.includes(event._id)
+                              color: currentUser?.interested.includes(event._id)
                                 ? "orange"
                                 : "lightgray",
                             }}
@@ -82,6 +82,7 @@ const EventDetailPage = () => {
                             ? event.images[0]
                             : "https://via.placeholder.com/160x100"
                         }
+                        alt="event-images"
                         style={{
                           width: "33rem",
                           height: "28rem",

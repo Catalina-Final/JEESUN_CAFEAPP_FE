@@ -93,7 +93,7 @@ const ShopDetailPage = () => {
                           <Link to={`/shop/edit/${shop._id}`}>
                             <Button
                               style={{
-                                backgroundColor: "#F57F5B",
+                                backgroundColor: "F57F5B",
                                 border: "none",
                               }}
                               variant="primary"
@@ -115,6 +115,7 @@ const ShopDetailPage = () => {
                           ? shop.images[0]
                           : "https://via.placeholder.com/160x100"
                       }
+                      alt="shop images"
                       style={{
                         width: "33rem",
                         height: "28rem",

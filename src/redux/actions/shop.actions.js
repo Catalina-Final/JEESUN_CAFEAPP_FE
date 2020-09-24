@@ -5,10 +5,29 @@ import { alertActions } from "./alert.actions";
 
 const pageLimit = 10;
 
-const shopsRequest = (page) => async (dispatch) => {
+const shopsRequest = (page = 1, query = null, option = null) => async (
+  dispatch
+) => {
   dispatch({ type: types.SHOP_REQUEST, payload: null });
   try {
-    const res = await api.get(`/shops?page=${page}&limit=${pageLimit}`);
+    console.log("middleware call okay?");
+    let queryString = "";
+    if (query) {
+      if (option === "name") {
+        queryString = `&sortName[$regex]=${query}&sortName[$options]=i`;
+      }
+      if (option === "district") {
+        queryString = `&district=${query}`;
+      }
+      if (option === "tags") {
+        // {tags : { $in: ["modern"]} }
+        queryString = `&tags[$in][]=${query}`;
+      }
+    }
+    const res = await api.get(
+      `/shops?page=${page}&limit=${pageLimit}${queryString}`
+    );
+    console.log("Do i have data?", res.data.data);
     dispatch({
       type: types.SHOP_SUCCESS,
       payload: { shops: res.data.data },

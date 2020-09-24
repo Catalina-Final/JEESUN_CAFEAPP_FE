@@ -12,12 +12,16 @@ import ShopDetailPage from "../ShopDetailPage";
 import EventDetailPage from "../EventDetailPage";
 import AddEditEventPage from "../AddEditEventPage";
 import GearsPage from "../GearsPage";
+import BeansPage from "../BeansPage";
+import TastePage from "../TastePage";
 import MasterPage from "../MasterPage";
+import CompanyPage from "../CompanyPage";
 import PublicFooter from "../PublicFooter";
 import AddEditShopPage from "../AddEditShopPage";
 import PrivateRoute from "../Routes/PrivateRoute";
 import AlertMsg from "./AlertMsg";
 import NotFoundPage from "../../containers/layouts/NotFoundPage";
+import DashboardPage from "../../containers/DashboardPage";
 import { useSelector } from "react-redux";
 
 const PublicLayout = () => {
@@ -42,7 +46,18 @@ const PublicLayout = () => {
         <Route exact path="/search" component={SearchResultPage} />
 
         <Route exact path="/gears" component={GearsPage} />
+        <Route exact path="/taste" component={TastePage} />
+        <Route exact path="/beans" component={BeansPage} />
         <Route exact path="/master" component={MasterPage} />
+
+        <Route exact path="/ourcompany" component={CompanyPage} />
+
+        <PrivateRoute
+          exact
+          path="/dashboard"
+          isAuthenticated={auth.isAuthenticated}
+          component={DashboardPage}
+        />
 
         <PrivateRoute
           exact

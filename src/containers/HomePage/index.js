@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   // Container,
   Jumbotron,
@@ -9,6 +9,7 @@ import {
   FormControl,
   Row,
   Col,
+  Form,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import coffee from "../../images/coffee.png";
@@ -23,6 +24,12 @@ import CarouselItem from "../../components/CarouselItem";
 
 const HomePage = () => {
   const history = useHistory();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    history.push(`/search?q=${searchTerm}`);
+  };
 
   return (
     <div className="main-container">
@@ -31,29 +38,33 @@ const HomePage = () => {
       <Jumbotron className="text-center jumbotron">
         {/* <h1>Search for a Coffee Society in Saigon</h1> */}
         <div classnName="search-box">
-          <InputGroup
-            className="inline mt-9 mb-4"
-            style={{
-              width: "24rem",
-              marginTop: "18rem",
-              marginLeft: "10rem",
-            }}
-          >
-            <FormControl
-              placeholder="Search for a Coffee Society in Saigon"
-              aria-describedby="basic-addon2"
-              className="montserrat"
-            />
-            <InputGroup.Append>
-              <Button
-                style={{ border: "white" }}
-                variant="outline-secondary"
-                onClick={(keyword) => history.push(`/search?q=${keyword}`)}
-              >
-                <i class="fas fa-search" style={{ color: "white" }}></i>
-              </Button>
-            </InputGroup.Append>
-          </InputGroup>
+          <Form onSubmit={handleSubmitSearch}>
+            <InputGroup
+              className="inline mt-9 mb-4"
+              style={{
+                width: "24rem",
+                marginTop: "18rem",
+                marginLeft: "10rem",
+              }}
+            >
+              <FormControl
+                placeholder="Search for a Coffee Society in Saigon"
+                aria-describedby="basic-addon2"
+                className="montserrat"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <InputGroup.Append>
+                <Button
+                  style={{ border: "white" }}
+                  variant="outline-secondary"
+                  type="submit"
+                >
+                  <i class="fas fa-search" style={{ color: "white" }}></i>
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form>
         </div>
       </Jumbotron>
 
@@ -141,11 +152,11 @@ const HomePage = () => {
               <Card.Img variant="top" src={taster} />
               <Card.Body className="card-title">
                 <Card.Title>TASTE COFFEE</Card.Title>
-                <Card.Text>How to taste</Card.Text>
+                <Card.Text>How to taste coffee</Card.Text>
                 <Button
                   style={{ backgroundColor: "#F57F5B", color: "white" }}
                   variant="light"
-                  onClick={() => history.push("/")}
+                  onClick={() => history.push("/taste")}
                 >
                   READ MORE{" >>"}
                 </Button>
@@ -158,11 +169,11 @@ const HomePage = () => {
               <Card.Img variant="top" src={beans} />
               <Card.Body className="card-title">
                 <Card.Title>SPECIAL BEANS</Card.Title>
-                <Card.Text>Types of Beans</Card.Text>
+                <Card.Text>the variety of beans</Card.Text>
                 <Button
                   style={{ backgroundColor: "#F57F5B", color: "white" }}
                   variant="light"
-                  onClick={() => history.push("/")}
+                  onClick={() => history.push("/beans")}
                 >
                   READ MORE{" >>"}
                 </Button>
@@ -175,7 +186,7 @@ const HomePage = () => {
               <Card.Img variant="top" src={master} />
               <Card.Body className="card-title">
                 <Card.Title>BARISTA CLASS</Card.Title>
-                <Card.Text>BARISTA CLASS</Card.Text>
+                <Card.Text>immerse yourself into coffee deeply</Card.Text>
                 <Button
                   style={{ backgroundColor: "#F57F5B", color: "white" }}
                   variant="light"
