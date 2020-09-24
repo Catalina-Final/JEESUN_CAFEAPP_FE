@@ -112,7 +112,10 @@ const SearchResultPage = () => {
               />
               <InputGroup.Append>
                 <Button variant="outline-dark" type="submit">
-                  <i class="fas fa-search" style={{ color: "#72684f" }}></i>
+                  <i
+                    class="fas fa-search"
+                    style={{ color: "#72684f", border: "none" }}
+                  ></i>
                 </Button>
               </InputGroup.Append>
             </InputGroup>
