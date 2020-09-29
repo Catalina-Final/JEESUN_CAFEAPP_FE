@@ -161,6 +161,7 @@ const ShopDetailPage = () => {
                             `https://maps.google.com/?q=${shop.address}`
                           }
                           target="blank"
+                          style={{ color: "red" }}
                         >
                           {shop.address}
                         </a>
