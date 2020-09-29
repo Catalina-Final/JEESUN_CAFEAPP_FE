@@ -96,6 +96,7 @@ const ShopDetailPage = () => {
                             style={{
                               backgroundColor: "#F57F5B",
                               border: "none",
+                              color: "white",
                             }}
                           >
                             Edit

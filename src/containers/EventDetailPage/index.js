@@ -67,6 +67,7 @@ const EventDetailPage = () => {
                             style={{
                               backgroundColor: "#f57f5b",
                               border: "none",
+                              color: "white",
                             }}
                           >
                             Edit
