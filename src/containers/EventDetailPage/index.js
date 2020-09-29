@@ -124,17 +124,7 @@ const EventDetailPage = () => {
                     </p>
                     <p>
                       <span className="detail-item label">Address:</span>{" "}
-                      <span className="label">
-                        <a
-                          href={
-                            shop.address &&
-                            `https://maps.google.com/?q=${shop.address}`
-                          }
-                          target="blank"
-                        >
-                          {shop.address}
-                        </a>
-                      </span>
+                      <span className="label">{event.address}</span>
                     </p>
                     <p>
                       <span className="detail-item label">Contact Number:</span>{" "}
