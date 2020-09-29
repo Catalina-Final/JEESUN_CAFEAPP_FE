@@ -43,7 +43,7 @@ const PublicFooter = () => {
           </Col>
           <Col xs lg="6">
             <Row>
-              <p className="footer-menu text-center">
+              <div className="footer-menu text-center">
                 WE BELIEVE THE COFFEE EXPERIENCE IS OUR RESPONSIBILITY FROM SEED
                 TO CUP. COFFEE IS OUR CRAFT, OUR RITUAL, OUR PASSION. IT DRIVES
                 US AND INSPIRES US. WITH THIS SIMPLE TRUTH AND RESPONSIBILITY WE
@@ -51,7 +51,7 @@ const PublicFooter = () => {
                 <p style={{ marginTop: "2rem" }}>
                   WE ARE COFFEE SOCIETY. MADE IN SAIGON.
                 </p>
-              </p>
+              </div>
             </Row>
             <Row
               className="d-flex align-content-center justify-content-center align-items-center"

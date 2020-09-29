@@ -32,9 +32,9 @@ const DashboardPage = () => {
     history.push(`/events/${id}`);
   };
 
-  useEffect(() => {
-    dispatch(shopActions.getUserFavoriteShops(currentUser.id, pageNum));
-  }, [dispatch, pageNum]);
+  // useEffect(() => {
+  //   dispatch(shopActions.getUserFavoriteShops(currentUser.id, pageNum));
+  // }, [dispatch, pageNum]);
 
   return (
     <div className="main-container montserrat label">
@@ -78,12 +78,12 @@ const DashboardPage = () => {
                       handleOnFavorite={handleOnFavorite}
                     />
                   ))}
-                  <PaginationItem
+                  {/* <PaginationItem
                     pageNum={pageNum}
                     setPageNum={setPageNum}
                     totalPageNum={totalPageNum}
                     loading={loading}
-                  />
+                  /> */}
                 </div>
               ) : (
                 <p>There are no shops in your list.</p>

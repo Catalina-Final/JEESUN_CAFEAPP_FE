@@ -2,6 +2,7 @@ import * as types from "../constants/event.constants";
 import api from "../api";
 import * as authTypes from "../constants/auth.constants";
 import { alertActions } from "./alert.actions";
+import { toast } from "react-toastify";
 
 const eventRequest = () => async (dispatch) => {
   dispatch({ type: types.EVENT_REQUEST, payload: null });
@@ -34,7 +35,7 @@ const createNewEvent = (formData) => async (dispatch) => {
   try {
     const res = await api.post("/events", formData);
     dispatch({ type: types.CREATE_EVENT_SUCCESS, payload: res.data.data });
-    dispatch(alertActions.setAlert("New event has been created!", "success"));
+    toast.success("New event has been created!");
   } catch (error) {
     dispatch({ type: types.CREATE_EVENT_FAILURE, payload: error });
   }
@@ -45,7 +46,7 @@ const updateEvent = (eventId, formData) => async (dispatch) => {
   try {
     const res = await api.put(`/events/${eventId}`, formData);
     dispatch({ type: types.UPDATE_EVENT_SUCCESS, payload: res.data.data });
-    dispatch(alertActions.setAlert("The event has been updated!", "success"));
+    toast.success("The event has been updated!");
   } catch (error) {
     dispatch({ type: types.UPDATE_EVENT_FAILURE, payload: error });
   }
@@ -59,7 +60,7 @@ const deleteEvent = (eventId) => async (dispatch) => {
       type: types.DELETE_EVENT_SUCCESS,
       payload: res.data,
     });
-    dispatch(alertActions.setAlert("The event has been deleted!", "success"));
+    toast.success("The event has been deleted!");
   } catch (error) {
     dispatch({ type: types.DELETE_EVENT_FAILURE, payload: error });
   }

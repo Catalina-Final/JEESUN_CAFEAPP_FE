@@ -1,6 +1,7 @@
 import * as types from "../constants/auth.constants";
 import api from "../api";
 import { alertActions } from "./alert.actions";
+import { toast } from "react-toastify";
 
 const loginRequest = (email, password) => async (dispatch) => {
   dispatch({ type: types.LOGIN_REQUEST, payload: null });
@@ -10,7 +11,7 @@ const loginRequest = (email, password) => async (dispatch) => {
     api.defaults.headers.common["authorization"] =
       "Bearer " + res.data.data.accessToken;
     const name = res.data.data.user.name;
-    dispatch(alertActions.setAlert(`Welcome back, ${name}`, "success"));
+    toast.success(`Welcome back, ${name}`);
   } catch (error) {
     dispatch({ type: types.LOGIN_FAILURE, payload: error });
   }
@@ -20,8 +21,13 @@ const register = (name, email, password) => async (dispatch) => {
   dispatch({ type: types.REGISTER_REQUEST, payload: null });
   try {
     const res = await api.post("/users", { name, email, password });
-    dispatch({ type: types.REGISTER_SUCCESS, payload: res.data.data });
+    dispatch({ type: types.REGISTER_SUCCESS, payload: res.data });
+    api.defaults.headers.common["authorization"] =
+      "Bearer " + res.data.data.accessToken;
+    // const user = res.data.data.user.name;
+    toast.success(`Welcome ${name} to the coffee society!`);
   } catch (error) {
+    console.log(error);
     dispatch({ type: types.REGISTER_FAILURE, payload: error });
   }
 };
@@ -31,7 +37,7 @@ const loginFacebookRequest = (access_token) => async (dispatch) => {
   try {
     const res = await api.post("/auth/login/facebook", { access_token });
     const name = res.data.data.user.name;
-    dispatch(alertActions.setAlert(`Welcome ${name}`, "success"));
+    toast.success(`Welcome ${name}`);
     dispatch({ type: types.LOGIN_FACEBOOK_SUCCESS, payload: res.data.data });
     api.defaults.headers.common["authorization"] =
       "Bearer " + res.data.data.accessToken;
@@ -46,7 +52,7 @@ const loginGoogleRequest = (access_token) => async (dispatch) => {
     const res = await api.post("/auth/login/google", { access_token });
     dispatch({ type: types.LOGIN_GOOGLE_SUCCESS, payload: res.data.data });
     const name = res.data.data.user.name;
-    dispatch(alertActions.setAlert(`Welcome ${name}`, "success"));
+    toast.success(`Welcome ${name}`);
     api.defaults.headers.common["authorization"] =
       "Bearer " + res.data.data.accessToken;
   } catch (error) {

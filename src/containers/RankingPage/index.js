@@ -18,7 +18,11 @@ const RankingPage = () => {
   const totalPageNum = useSelector((state) => state.shop.totalPageNum);
 
   useEffect(() => {
-    dispatch(shopActions.shopsRequest(pageNum));
+    const sortBy = {
+      key: "avgRatings",
+      ascending: "-1",
+    };
+    dispatch(shopActions.shopsRequest(pageNum, null, null, sortBy));
   }, [dispatch, pageNum]);
 
   const handleClickOnShop = (id) => {
@@ -122,7 +126,9 @@ const RankingPage = () => {
                     shop={shop}
                     key={shop._id}
                     color={
-                      currentUser?.favorites.includes(shop._id)
+                      currentUser?.favorites
+                        .map((item) => item._id)
+                        .includes(shop._id)
                         ? "red"
                         : "black"
                     }

@@ -60,7 +60,7 @@ const HomePage = () => {
                   variant="outline-secondary"
                   type="submit"
                 >
-                  <i class="fas fa-search" style={{ color: "white" }}></i>
+                  <i className="fas fa-search" style={{ color: "white" }}></i>
                 </Button>
               </InputGroup.Append>
             </InputGroup>

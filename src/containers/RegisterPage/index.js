@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, Redirect } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../redux/actions";
@@ -19,7 +19,7 @@ const RegisterPage = () => {
   });
 
   const dispatch = useDispatch();
-  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
   const redirectTo = useSelector((state) => state.auth.redirectTo);
   const history = useHistory();
@@ -57,6 +57,8 @@ const RegisterPage = () => {
       }
     }
   }, [dispatch, history, redirectTo]);
+
+  if (isAuthenticated) return <Redirect to="/" />;
 
   return (
     <div className="main-container montserrat">

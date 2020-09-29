@@ -2,12 +2,16 @@ import * as types from "../constants/shop.constants";
 import * as authTypes from "../constants/auth.constants";
 import api from "../api";
 import { alertActions } from "./alert.actions";
+import { toast } from "react-toastify";
 
 const pageLimit = 10;
 
-const shopsRequest = (page = 1, query = null, option = null) => async (
-  dispatch
-) => {
+const shopsRequest = (
+  page = 1,
+  query = null,
+  option = null,
+  sortBy = null
+) => async (dispatch) => {
   dispatch({ type: types.SHOP_REQUEST, payload: null });
   try {
     console.log("middleware call okay?");
@@ -24,8 +28,12 @@ const shopsRequest = (page = 1, query = null, option = null) => async (
         queryString = `&tags[$in][]=${query}`;
       }
     }
+    let sortByString = "";
+    if (sortBy?.key) {
+      sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
+    }
     const res = await api.get(
-      `/shops?page=${page}&limit=${pageLimit}${queryString}`
+      `/shops?page=${page}&limit=${pageLimit}${queryString}${sortByString}`
     );
     console.log("Do i have data?", res.data.data);
     dispatch({
@@ -58,7 +66,7 @@ const createNewShop = (formData) => async (dispatch) => {
       type: types.CREATE_SHOP_SUCCESS,
       payload: res.data.data,
     });
-    dispatch(alertActions.setAlert("New shop has been created!", "success"));
+    toast.success("New shop has been created!");
   } catch (error) {
     dispatch({ type: types.CREATE_SHOP_FAILURE, payload: error });
   }
@@ -72,7 +80,7 @@ const updateShop = (shopId, formData) => async (dispatch) => {
       type: types.UPDATE_SHOP_SUCCESS,
       payload: res.data.data,
     });
-    dispatch(alertActions.setAlert("The shop has been updated!", "success"));
+    toast.success("The shop has been updated!");
   } catch (error) {
     dispatch({ type: types.UPDATE_SHOP_FAILURE, payload: error });
   }
@@ -86,7 +94,7 @@ const deleteShop = (shopId) => async (dispatch) => {
       type: types.DELETE_SHOP_SUCCESS,
       payload: res.data,
     });
-    dispatch(alertActions.setAlert("The shop has been deleted!", "success"));
+    toast.success("The shop has been deleted!");
   } catch (error) {
     dispatch({ type: types.DELETE_SHOP_FAILURE, payload: error });
   }
