@@ -239,7 +239,6 @@ const SearchResultPage = () => {
                 <option value="5">Disctrict 5</option>
                 <option value="6">Disctrict 6</option>
                 <option value="7">Disctrict 7</option>
-                <option value="8">Disctrict 8</option>
                 <option value="9">Disctrict 9</option>
                 <option value="10">Disctrict 10</option>
                 <option value="11">Disctrict 11</option>
