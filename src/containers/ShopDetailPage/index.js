@@ -90,16 +90,15 @@ const ShopDetailPage = () => {
                       <Col sm={2}>
                         {currentUser?.role === "owner" ||
                         currentUser?.role === "admin" ? (
-                          <Link to={`/shop/edit/${shop._id}`}>
-                            <Button
-                              style={{
-                                backgroundColor: "F57F5B",
-                                border: "none",
-                              }}
-                              variant="primary"
-                            >
-                              Edit
-                            </Button>
+                          <Link
+                            to={`/shop/edit/${shop._id}`}
+                            className="btn"
+                            style={{
+                              backgroundColor: "#F57F5B",
+                              border: "none",
+                            }}
+                          >
+                            Edit
                           </Link>
                         ) : (
                           <span className="text-muted">

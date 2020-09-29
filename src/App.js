@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Routes from "./containers/Routes";
 import { BrowserRouter as Router } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "./redux/actions";
 import { ClipLoader } from "react-spinners";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();

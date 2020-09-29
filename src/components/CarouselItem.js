@@ -51,6 +51,7 @@ const CarouselItem = () => {
                     onSuccess={() => {}}
                     onAfterRender={() => {}}
                     onFailure={() => {}}
+                    style={{ color: "red" }}
                   />
                   {/* <Card.Body>
                     <Card.Title>Event</Card.Title>

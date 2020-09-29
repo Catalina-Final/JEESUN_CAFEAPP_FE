@@ -61,8 +61,15 @@ const EventDetailPage = () => {
                       <Col sm={2}>
                         {currentUser?.role === "owner" ||
                         currentUser?.role === "admin" ? (
-                          <Link to={`/event/edit/${event._id}`}>
-                            <Button variant="primary">Edit</Button>
+                          <Link
+                            className="btn"
+                            to={`/event/edit/${event._id}`}
+                            style={{
+                              backgroundColor: "#f57f5b",
+                              border: "none",
+                            }}
+                          >
+                            Edit
                           </Link>
                         ) : (
                           <span className="text-muted">
