@@ -298,15 +298,15 @@ const AddEditShopPage = () => {
                   <option value="5">Disctrict 5</option>
                   <option value="6">Disctrict 6</option>
                   <option value="7">Disctrict 7</option>
-                  <option value="8">Disctrict 9</option>
-                  <option value="9">Disctrict 10</option>
-                  <option value="10">Disctrict 11</option>
-                  <option value="11">Bình Thạnh District</option>
-                  <option value="12">Gò Vấp District</option>
-                  <option value="13">Phú Nhuận District</option>
-                  <option value="14">Tân Bình District</option>
-                  <option value="15">Tân Phú District</option>
-                  <option value="16">etc</option>
+                  <option value="9">Disctrict 9</option>
+                  <option value="10">Disctrict 10</option>
+                  <option value="11">Disctrict 11</option>
+                  <option value="binhThanh">Bình Thạnh District</option>
+                  <option value="goVap">Gò Vấp District</option>
+                  <option value="phuNhuan">Phú Nhuận District</option>
+                  <option value="tanBinh">Tân Bình District</option>
+                  <option value="tanPhu">Tân Phú District</option>
+                  <option value="etc">etc</option>
                 </Form.Control>
               </Form.Group>
 
