@@ -10,7 +10,9 @@ const shopsRequest = (
   page = 1,
   query = null,
   option = null,
-  sortBy = null
+  sortBy = null,
+  lat = null,
+  lng = null
 ) => async (dispatch) => {
   dispatch({ type: types.SHOP_REQUEST, payload: null });
   try {
@@ -22,6 +24,9 @@ const shopsRequest = (
       }
       if (option === "district") {
         queryString = `&district=${query}`;
+      }
+      if (option === "distance") {
+        queryString = `&distance=${query}&latlng=${lat},${lng}`;
       }
       if (option === "tags") {
         // {tags : { $in: ["modern"]} }

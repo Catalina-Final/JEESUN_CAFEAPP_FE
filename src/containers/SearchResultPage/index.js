@@ -17,6 +17,12 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0,
+};
+
 const SearchResultPage = () => {
   const [keyword, setKeyword] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,6 +38,8 @@ const SearchResultPage = () => {
 
   const [district, setDistrict] = useState("");
   const [tags, setTags] = useState("");
+
+  const [distance, setDistance] = useState(0);
 
   useEffect(() => {
     if (query.get("q")) {
@@ -80,8 +88,37 @@ const SearchResultPage = () => {
     //   );
     // }
   };
+
+  const onError = (err) => {
+    alert(err.message);
+  };
   const searchHihi = (term, option) => {
-    dispatch(shopActions.shopsRequest(null, term, option));
+    if (option === "distance") {
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          console.log(
+            "pos.coords.latitude",
+            pos.coords.latitude,
+            "pos.coords.long",
+            pos.coords.longitude
+          );
+          dispatch(
+            shopActions.shopsRequest(
+              1,
+              term,
+              option,
+              null,
+              pos.coords.latitude,
+              pos.coords.longitude
+            )
+          );
+        },
+        onError,
+        options
+      );
+    } else {
+      dispatch(shopActions.shopsRequest(1, term, option));
+    }
   };
 
   return (
@@ -121,8 +158,49 @@ const SearchResultPage = () => {
               </InputGroup.Append>
             </InputGroup>
           </Form>
-          {/* ------------- search by district ------------ */}
+
+          {/* ------------- search by Distance------------ */}
           <div className="d-flex" style={{ marginTop: "2rem" }}>
+            <Form style={{ marginRight: "1rem", width: "20rem" }}>
+              <Form.Label
+                className="label text-center mr-3"
+                style={{
+                  border: "none",
+                  backgroundColor: "#b7a986",
+                  borderRadius: "5px",
+                  paddingRight: "1rem",
+                  paddingLeft: "1rem",
+                  color: "white",
+                }}
+              >
+                Search by Distance
+              </Form.Label>
+
+              <Form.Control
+                as="select"
+                required
+                className="mr-sm-2 "
+                id="inlineFormCustomSelect"
+                custom
+                name="distance"
+                value={distance}
+                onChange={(e) => {
+                  setKeyword("");
+                  setTags("");
+                  searchHihi(e.target.value, "distance");
+                }}
+              >
+                {console.log("e.target.value: ", distance)}
+                <option value="0">Choose Distance</option>
+                <option value="1">Within 1km</option>
+                <option value="2">Within 2km</option>
+                <option value="3">Within 3km</option>
+                <option value="4">Within 4km</option>
+                <option value="5">Within 5km</option>
+              </Form.Control>
+            </Form>
+
+            {/* ------------- search by district ------------ */}
             <Form style={{ marginRight: "1rem", width: "20rem" }}>
               <Form.Label
                 className="label text-center mr-3"

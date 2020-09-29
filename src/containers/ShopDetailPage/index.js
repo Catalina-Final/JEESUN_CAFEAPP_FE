@@ -53,7 +53,7 @@ const ShopDetailPage = () => {
     // dispatch(authActions.getCurrentUser());
   }, [dispatch, params]);
 
-  console.log(userRating);
+  console.log(shop);
   return (
     <div className="detail-container montserrat">
       <Container>
@@ -154,7 +154,17 @@ const ShopDetailPage = () => {
                     </p>
                     <p>
                       <span className="detail-item label">Address:</span>{" "}
-                      <span className="label">{shop.address}</span>
+                      <span className="label">
+                        <a
+                          href={
+                            shop.address &&
+                            `https://maps.google.com/?q=${shop.address}`
+                          }
+                          target="blank"
+                        >
+                          {shop.address}
+                        </a>
+                      </span>
                     </p>
                     <p>
                       <span className="detail-item label">Contact Number:</span>{" "}
