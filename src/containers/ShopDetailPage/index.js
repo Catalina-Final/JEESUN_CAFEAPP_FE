@@ -78,7 +78,9 @@ const ShopDetailPage = () => {
                             size="2x"
                             className="click-button"
                             style={{
-                              color: currentUser?.favorites.includes(shop._id)
+                              color: currentUser?.favorites
+                                .map((item) => item._id)
+                                .includes(shop._id)
                                 ? "red"
                                 : "black",
                             }}

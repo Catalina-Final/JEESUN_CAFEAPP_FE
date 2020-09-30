@@ -307,7 +307,9 @@ const SearchResultPage = () => {
                     shop={shop}
                     key={shop._id}
                     color={
-                      currentUser?.favorites.includes(shop._id)
+                      currentUser?.favorites
+                        .map((item) => item._id)
+                        .includes(shop._id)
                         ? "red"
                         : "black"
                     }
